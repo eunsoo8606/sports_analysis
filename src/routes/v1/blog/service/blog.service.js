@@ -10,7 +10,7 @@ const stCd        = require("../../../../utils/statusCode");
 module.exports = {
     insert : (data) =>{
         return new Promise((resolve, reject)=>{
-                var db = mysqlConObj.init();
+                const db = mysqlConObj.init();
                 db.beginTransaction();
                 console.log(" query : ", blogQs.INSERT)
                 console.log("Data : ",data)
@@ -31,14 +31,14 @@ module.exports = {
                 });
         });
     },
-    selectList: (blog,res)=>{
+    selectList: (community,res)=>{
         return new Promise((resolve,reject)=>{
-            var db = mysqlConObj.init();
-            console.log(" query : ", blogQs.LIST(blog.title,blog.content,blog.memberSeq,blog.firstIndex));
-            console.log("query value : ", common(blog))
-            db.query(blogQs.LIST(blog.title,blog.content,blog.memberSeq,blog.firstIndex),common(blog), function (err, results, fields) {
+            const db = mysqlConObj.init();
+            console.log(" query : ", blogQs.LIST(community.title,community.content,community.memberSeq,community.firstIndex));
+            console.log("query value : ", common(community))
+            db.query(blogQs.LIST(community.title,community.content,community.memberSeq,community.firstIndex),common(community), function (err, results, fields) {
                 //result Check
-                if (err || !results || results.length == 0) {
+                if (err || !results || results.length === 0) {
                     res.send(errors.error(resMsg.DB_ERROR,'DATABASE ERROR..'));
                     db.end();
                     return false;
@@ -68,13 +68,32 @@ module.exports = {
             });
         });
     },
+    pageCount : (pageNum) =>{
+        return new Promise((resolve,reject)=>{
+            const db = mysqlConObj.init();
+            console.log("pageNum : ", pageNum)
+            console.log("PAGE_CNT query : ", blogQs.PAGE_CNT(pageNum))
+            db.query(blogQs.PAGE_CNT(pageNum),pageNum, function (err, results, fields) {
+                console.log("results : ", results)
+                //result Check
+                if (err || !results || results.length === 0) {
+                    console.log("err : ", err)
+                    db.end();
+                    return false;
+                }
+                const count = results[0].COUNT;
+                db.end();
+                return resolve(count);
+            });
+        });
+    },
     selectOne:(blogSeq,res)=>{
         return new Promise((resolve,reject)=>{
             var db = mysqlConObj.init();
      
             db.query(blogQs.SELECT_ONE,blogSeq, function (err, results, fields) {
                 //result Check
-                if (err || !results || results.length == 0) {
+                if (err || !results || results.length === 0) {
                     res.send(errors.error(resMsg.DB_ERROR,err));
                     db.end();
                     return false;

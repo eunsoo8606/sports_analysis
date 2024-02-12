@@ -7,8 +7,12 @@ const fs      = require('fs');
 const appRoot = require('app-root-path');
 const request = require('request');
 const bCount  = require('../../../middlewares/blogCount');
-
-
+const commService   = require('./service/blog.service');
+const commVo        = require('./vo/blog.vo');
+const pagination    = require('../../../utils/pagination');
+const stCd          = require('../../../utils/statusCode');
+const resMsg        = require('../../../utils/responseMssage');
+const success       = require('../../../utils/success');
 
 router.get('/', (req, res) => {
     var scope;
@@ -22,43 +26,27 @@ router.get('/', (req, res) => {
     res.render("blog/blog.ejs",value);
 });
 
-router.get('/list', (req, res) => {
-    console.log("blog controller init...");
-    let cookies     = common.util.getCookie(req);
-    let cpage       = req.query.cpage;
-    let selectSize  = req.query.selectSize;
-    let title       = req.query.title;
-    let content     = req.query.content;
-    let limit       = req.query.limit;
-    let scope       = (req.session.scope ?? "paging");
-    console.log("scope : ", scope)
-    request({
-        url:`${process.env.apiServerUrl}/v1/blog/list`,
-        method:'GET',
-        headers:{
-                 'Cotent-Type':'application/json; charset=UTF-8',
-                 'Authorization':'Bearer ' + cookies.acToken},
-        qs:{
-          limit:limit,
-          cpage:cpage,
-          selectSize:selectSize,
-          title:title,
-          content:content,
-          order:'desc',
-          scope:scope
-        },json:true
-      },
-      function (error, response, body) {
-        if(error !== undefined && error !== null){ 
-            res.send("401");
-            return false;
+router.get('/list', async (req, res) => {
+    console.log("list init....",req.query);
+    let community            = {cpage:req.query.cpage,selectSize:req.query.selectSize,title:req.query.title,content:req.query.content,limit:req.query.limit,memberSeq:req.query.id};
+    let scope                = req.query.scope;
+
+    if(scope !== undefined && scope.indexOf(",") > -1){
+        let categoty       = scope.split(",");
+
+        switch(categoty[0]){
+            case 'list': await list(community,res); break;
+            case 'paging': await pagingList(community,res); break;
         }
-        if(body === undefined){ 
-            res.send("401");
-            return false;
+
+    }else{
+        community.memberSeq = '';
+        switch(scope){
+            case 'list': await list(community,res); break;
+            case 'paging': await pagingList(community,res); break;
         }
-        res.send({data:body.data,etc:body.etc});
-      });
+    }
+
 });
 
 router.get('/detail/:id',(req,res)=>{
@@ -390,6 +378,41 @@ router.put("/detail/:id/comments",(req,res)=>{
         res.status(201).send({data:body.data});
       });
 });
+
+
+
+async function list(community,res){
+    console.log("list inti...")
+    commService.selectList(community,res).then((data)=>{
+        res.status(stCd.OK).send(success.success_json(resMsg.SUCCESS_REQUEST,data,''));
+        res.end();
+    });
+}
+
+async function pagingList(community,res){
+    let paging         = {};
+    let totalCount     = 0;
+    let totalPageCount = 0;
+    //내 블로그 작성글 전체 카운트
+    await commService.totalCount(community,res).then((data)=>{
+        totalCount         = data;
+        var limit          = 10;
+
+        if(community.selectSize !== undefined)
+            limit = community.selectSize
+
+        community.lastIndex     = pagination.lastIndex(community.cpage,limit);
+        totalPageCount     = pagination.getTotalPageCount(totalCount,limit);
+        community.firstIndex    = pagination.firstIndex(community.cpage,limit);
+
+         commService.selectList(community,res).then((data)=>{
+            paging.totalpage    = parseInt(totalPageCount);
+            paging.totalCount   = parseInt(totalCount);
+            res.status(stCd.OK).send(success.success_json(resMsg.SUCCESS_REQUEST,data,'',paging));
+            res.end();
+        });
+    });
+}
 
 
 module.exports = router;

@@ -53,8 +53,8 @@ const util     = require("./utils/util");
 const year       = moment().format("YYYY");
 const month      = moment().format("MM");
 const fs             = require('fs');
-const blogService   = require('./routes/v1/blog/service/blog.service');
-const blogVo        = require('./routes/v1/blog/vo/blog.vo');
+const commService   = require('./routes/v1/blog/service/blog.service');
+const commVo        = require('./routes/v1/blog/vo/blog.vo');
 /**
  * 스케줄러 영역
  *
@@ -77,7 +77,7 @@ async function scrapingHumor(url){
     let width  = 1920;
     let height = 1080;
     let browserOption = {
-        headless : false, // 헤드리스모드의 사용여부를 묻는다.
+        headless : 'new', // 헤드리스모드의 사용여부를 묻는다.
         devtools : false,   // 개발자 모드의 사용여부를 묻는다.
         args: [
             `--window-size=${width},${height}`,
@@ -96,7 +96,7 @@ async function scrapingHumor(url){
     }
 
     const browser = await puppeteer.launch(browserOption);
-    console.log("MainContent 시작....");
+
     const page    = await browser.newPage();
     let pages = '';
 
@@ -128,17 +128,36 @@ async function scrapingHumor(url){
         await page.click("#board-list > div:nth-child(2) > div > ul > li:nth-child(2) > a");
 
         await page.waitForTimeout(3000);
-        const imgUrlList = [];
-        const selector = '#app-board > div.app-article-wrap > div:nth-child(3) > div.app-board-container.app-article-container > div.app-article-content.app-clearfix img';
+        const selector  = '#app-board > div.app-article-wrap > div:nth-child(3) > div.app-board-container.app-article-container > div.app-article-content.app-clearfix img';
+        const site       = await page.url();
 
+        const pageNum   = site.substr(site.lastIndexOf('/')+1);
+        let   pageCnt = 0;
         try{
 
-           const images = await page.$$(selector);
+            await commService.pageCount(pageNum).then((data)=>{
+                if(data > 0){
+                    pageCnt = data;
+                }
+            });
 
+            if(pageCnt > 0){
+               await browser.close();
+               return false;
+            }
+
+            const images = await page.$$(selector);
+            const resource = '/uploads/img/'+year.toString()+'/'+month.toString()+"/";
+            let mainImg = ``;
+            let content  = `<p>`;
             if (images.length > 0) {
                 for(let i = 0; i < images.length; i++){
                     const src = await page.evaluate(img => img.src, images[i]);// 첫 번째 이미지의 URL 출력
                     const fileName = src.substr(src.lastIndexOf('/')+1,src.lastIndexOf('.'));
+
+                    if(fileName.includes("c2dd6ad490c487293be39a6e4902ede8")) continue;
+
+                    mainImg = fileName;
                     // 이미지 다운로드
                     const response = await axios({
                         method: 'GET',
@@ -147,24 +166,22 @@ async function scrapingHumor(url){
                     });
 
                     await fileUpload(response,fileName);
-                    const title = await page.$eval('#app-board > div.app-article-wrap > div:nth-child(3) > div.app-board-article-head > div > h1', element => element.textContent);
-                    const content = await page.$eval('#app-board > div.app-article-wrap > div:nth-child(3) > div.app-board-container.app-article-container', element => element.textContent);
+                    content  += `<img src="${resource+fileName}" alt="" data-pswp-pid="1" />`;
 
-
-                    blogService.insert(blogVo.blog('0',resource+fileName,title,content,'127.0.0.1','0','HUM','')).then((data)=>{
-                        console.log("Data : ", data);
-                        if(data > 0){
-                            res.status(stCd.CREATED).send(success.success_json(resMsg.CREATED,data,true));
-                            res.end();
-                        }
-                    });
                 }
+                content += `</p>`;
+
+                let title    = await page.$eval('#app-board > div.app-article-wrap > div:nth-child(3) > div.app-board-article-head > div > h1', element => element.textContent);
+                await commService.insert(commVo.community('0',pageNum,site,resource+mainImg, title, content,'127.0.0.1','0','HUM','')).then((data)=>{
+                    console.log("Data : ", data);
+                    if(data > 0){
+                        console.log("data insert success!");
+                    }
+                });
 
             } else {
                 console.log('이미지가 없습니다.');
             }
-
-
 
         }catch(e){
             console.log("======================== None Page Content =============================");
@@ -175,7 +192,6 @@ async function scrapingHumor(url){
 
     }catch(e){
         console.log("e : ", e);
-        pages = await browser.pages();
         await browser.close();
     }
 }
@@ -190,8 +206,8 @@ async function fileUpload(response,fileName){
     util.makeFolder(path.join(root));
 
     const imgUri   = root + '/' + fileName;
-    if(!fileName.includes("c2dd6ad490c487293be39a6e4902ede8"))
-        response.data.pipe(fs.createWriteStream(imgUri));
+
+    response.data.pipe(fs.createWriteStream(imgUri));
 }
 
 

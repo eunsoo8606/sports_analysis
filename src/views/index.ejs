@@ -37,13 +37,16 @@
     <script>
       $(()=>{
 
+        const requestParams = {cpage:1,limit:10,title:'',category:'',selectSize:10,scope:'paging',content:'',memberSeq:0};
+
         $.ajax({
-          url:"/v1/blog/top3",
+          url:"/v1/blog/list",
           type:"GET",
+          data:requestParams,
           success:(data)=>{ 
-            var datas  = data.data;
-            var values = '';
-            var webDomain = window.location.protocol+ "//" + window.location.host;
+            let datas  = data.data;
+            let values = '';
+            let webDomain = window.location.protocol+ "//" + window.location.host;
             if(datas == null || datas.length == 0) {
               values="<div class='blog-none'>작성된 블로그 내용이 없습니다.</div>";
               $("#blog_area").html(values);
@@ -51,7 +54,8 @@
             }
     
             for(var i = 0; i < datas.length;i++){
-              var mainImg = datas[i].MAIN_IMG;
+              let mainImg = datas[i].MAIN_IMG;
+              console.log("mainImg : ", mainImg)
               if(mainImg == null) mainImg = '/imges/blog/blog-image-1.jpg';
     
               values += ` <div class="col-md-6 col-lg-4 mt-5">

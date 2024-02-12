@@ -1,6 +1,6 @@
 module.exports={
-    blog:(memberSeq,mainImg,title,content,regpIp,regpSeq,mainCategory) =>{
-        return [memberSeq,mainImg,title,content,regpIp,regpSeq,mainCategory];
+    community:(memberSeq,pageNum,site,mainImg,title,content,regpIp,regpSeq,mainCategory,subCategory) =>{
+        return [memberSeq,pageNum,site,mainImg,title,content,regpIp,regpSeq,mainCategory,subCategory];
     },
     updateBlog:(title,content,mainImg,mdfpIp,mdfpSeq,blogSeq)=>{
         return [title,content,mainImg,mdfpIp,mdfpSeq,blogSeq];

@@ -184,6 +184,11 @@ img,video {
     max-width: 100%
 }
 
+a > img {
+    clip-path: inset(0px auto auto 0px); /* 상단에서부터 220px의 높이만 보여줌 */
+    height: 220px;
+}
+
 [multiple],[type=date],[type=datetime-local],[type=email],[type=month],[type=number],[type=password],[type=search],[type=tel],[type=text],[type=time],[type=url],[type=week],select,textarea {
     --tw-shadow: 0 0 #0000;
     -webkit-appearance: none;
@@ -3884,4 +3889,8 @@ html.sr .yuki-scroll-reveal,html.sr .yuki-scroll-reveal-widget {
     .lg\:flex-row-reverse {
         flex-direction: row-reverse
     }
+}
+
+.yuki-footer-area{
+    border-top: 5px solid #e0a800;
 }

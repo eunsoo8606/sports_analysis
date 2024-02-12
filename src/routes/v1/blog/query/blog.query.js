@@ -1,17 +1,17 @@
 module.exports={
-    INSERT : 'INSERT INTO BLOG (MEMBER_SEQ,MAIN_IMG,TITLE,CONTENT,REGP_IP,REGP_SEQ,CATEGORY)VALUES(?,?,?,?,?,?,?)',
-    DELETE : 'DELETE FROM BLOG WHERE BLOG_SEQ = ?',
-    UPDATE : 'UPDATE BLOG SET TITLE = ?, CONTENT = ?, MAIN_IMG = ?, MDFP_IP =? ,MDFP_SEQ = ?, MDF_DTTM = NOW() WHERE BLOG_SEQ = ?',
+    INSERT : 'INSERT INTO COMMUNITY (MEMBER_SEQ,PAGE_NUM,SITE,MAIN_IMG,TITLE,CONTENT,REGP_IP,REGP_SEQ,MAIN_CTGRY,SUB_CTGRY)VALUES(?,?,?,?,?,?,?,?,?,?)',
+    DELETE : 'DELETE FROM COMMUNITY WHERE COMM_SEQ = ?',
+    UPDATE : 'UPDATE COMMUNITY SET TITLE = ?, CONTENT = ?, MAIN_IMG = ?, MDFP_IP =? ,MDFP_SEQ = ?, MDF_DTTM = NOW() WHERE BLOG_SEQ = ?',
     LIST   :(title,content,memberSeq,firstIndex)=>{ 
-        var list = `SELECT B.* 
+        const list = `SELECT B.* 
                       FROM (SELECT @rownum:=@rownum+1 AS RNUM,
-                                   BLOG_SEQ,
+                                   COMM_SEQ,
                                    MAIN_IMG,
                                    TITLE,
                                    DATE_FORMAT(REG_DTTM,"%Y-%m-%d") as REG_DTTM,
                                    CONTENT,
                                    COUNT
-                              FROM BLOG, (SELECT @rownum:=0) TMP
+                              FROM COMMUNITY, (SELECT @rownum:=0) TMP
                              WHERE 1=1
                    ${(memberSeq !== undefined && memberSeq !== '') ? 'AND MEMBER_SEQ = ?':''}
                    ${(title !== undefined && title !== '') ? 'AND TITLE LIKE CONCAT("%",?,"%")':''}
@@ -24,13 +24,19 @@ module.exports={
             },
     TOTAL     : (memberSeq,title,content)=>{
                               return `SELECT COUNT(*) as COUNT 
-                                        FROM BLOG
+                                        FROM COMMUNITY
                                        WHERE 1=1
                                ${(memberSeq !== "" && memberSeq !== undefined?"AND MEMBER_SEQ = ?":"")}
                                ${(title !== undefined && title !== '') ? 'AND TITLE LIKE CONCAT("%",?,"%")':''}
                                ${(content !== undefined && content !== '')?'AND CONTENT LIKE CONCAT("%",?,"%")':''}
                                `;
                              },
+    PAGE_CNT : (pageNum) =>{
+                              return `SELECT COUNT(*) as COUNT 
+                                        FROM COMMUNITY
+                                       WHERE PAGE_NUM = ?
+                               `;
+    },
     SELECT_ONE : `
                   SELECT  a.BLOG_SEQ,
                           a.MAIN_IMG,
@@ -40,8 +46,8 @@ module.exports={
                           a.CONTENT ,
                           b.NICK_NAME,
                           a.COUNT
-                    FROM BLOG a, MEMBER b
-                   WHERE BLOG_SEQ = ?
+                    FROM COMMUNITY a, MEMBER b
+                   WHERE COMM_SEQ = ?
                      AND a.MEMBER_SEQ = b.MEMBER_SEQ`,
     TOP3      :(memberSeq)=>{
         return `SELECT DATE_FORMAT(REG_DTTM,'%y.%m.%d') AS REG_DTTM,
