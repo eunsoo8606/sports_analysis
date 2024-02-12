@@ -83,6 +83,7 @@
 function uploadSummernoteImageFile(file,el){
       var data = new FormData();
 			data.append("file", file);
+
       $.ajax({
                 url:"/v1/blog/upload",
                 type:"POST",

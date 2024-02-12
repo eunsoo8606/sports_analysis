@@ -9,6 +9,7 @@ const request = require('request');
 const bCount  = require('../../../middlewares/blogCount');
 
 
+
 router.get('/', (req, res) => {
     var scope;
     console.log("req.query.scope : ", req.query.scope)
@@ -360,10 +361,10 @@ router.delete("/detail/:id/comments",(req,res)=>{
 
 
 router.put("/detail/:id/comments",(req,res)=>{
-    var blogSeq     = req.params.id;
-    var cookies     = common.util.getCookie(req);
-    var commentSeq  = req.body.commentSeq;
-    var text        = req.body.conts;
+    let blogSeq     = req.params.id;
+    let cookies  = common.util.getCookie(req);
+    let commentSeq  = req.body.commentSeq;
+    let text        = req.body.conts;
 
     request({
         url:`${process.env.apiServerUrl}/v1/blog/detail/comments`,
@@ -389,4 +390,6 @@ router.put("/detail/:id/comments",(req,res)=>{
         res.status(201).send({data:body.data});
       });
 });
+
+
 module.exports = router;
