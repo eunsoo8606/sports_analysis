@@ -504,18 +504,6 @@ form, .yuki-form, [type="submit"] {
     --yuki-builder-elements-gap: 12px;
 }
 
-.yuki-header-row-bottom_row {
-    background-color: var(--yuki-base-color);
-    background-image: none;
-    box-shadow: rgba(44, 62, 80, 0.1) 0px 2px 10px 0px;
-    border-top: 4px solid var(--lotta-border-border-top-initial-color);
-    --lotta-border-initial-color: var(--yuki-base-200);
-    --lotta-border-border-top-initial-color: var(--yuki-primary-color);
-    border-bottom: none;
-    --lotta-border-border-bottom-initial-color: var(--yuki-base-200);
-    z-index: 98;
-    display: block;
-}
 
 .yuki-header-row-bottom_row .container {
     min-height: 60px;
@@ -539,46 +527,6 @@ form, .yuki-form, [type="submit"] {
     justify-content: flex-start;
     align-items: center;
     --yuki-builder-elements-gap: 12px;
-}
-
-.yuki_header_el_menu_2 > li {
-    font-family: inherit;
-    font-weight: 500;
-    font-size: 0.8rem;
-    line-height: 1;
-    text-transform: capitalize;
-}
-
-.yuki_header_el_menu_2 > li ul {
-    font-family: inherit;
-    font-weight: 500;
-    font-size: 0.75rem;
-    line-height: 1;
-}
-
-.yuki_header_el_menu_2 {
-    --menu-items-height: 50%;
-    --dropdown-width: 200px;
-    --menu-text-initial-color: var(--yuki-accent-color);
-    --menu-text-hover-color: var(--yuki-primary-color);
-    --menu-text-active-color: var(--yuki-primary-color);
-    --menu-background-initial-color: var(--yuki-transparent);
-    --menu-background-hover-color: var(--yuki-transparent);
-    --menu-background-active-color: var(--yuki-transparent);
-    --menu-items-margin: 0px 0px 0px 0px;
-    --menu-items-padding: 4px 8px 4px 8px;
-    --menu-items-radius: 0 0 0 0;
-    --dropdown-text-initial-color: var(--yuki-accent-color);
-    --dropdown-text-hover-color: var(--yuki-primary-color);
-    --dropdown-text-active-color: var(--yuki-primary-color);
-    --dropdown-background-initial-color: var(--yuki-base-color);
-    --dropdown-background-active-color: var(--yuki-base-color);
-    --dropdown-item-padding: 12px 12px 12px 12px;
-    --dropdown-radius: 3px 3px 3px 3px;
-    --dropdown-box-shadow: rgba(44, 62, 80, 0.2) 0px 0px 15px 0px;
-    --dropdown-divider: none;
-    --lotta-border-initial-color: var(--yuki-base-200);
-    --lotta-border---dropdown-divider-initial-color: var(--yuki-base-200);
 }
 
 .yuki_header_builder_col_bottom_row_1_desktop {

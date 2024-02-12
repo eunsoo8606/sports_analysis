@@ -1048,7 +1048,9 @@ select {
 }
 
 .yuki-header-row {
-    position: relative
+    position: relative;
+    border-top: 4px solid #ffc300;
+    background: #000;
 }
 
 .yuki-header-row .container {
@@ -1071,7 +1073,14 @@ select {
 }
 
 .sf-menu a,.sf-menu li {
-    position: relative
+    position: relative;
+    color: #FFFFFF;
+    font-weight: bold;
+}
+
+.sf-menu a:hover{
+    color: #e0a800;
+    list-style: none;
 }
 
 .sf-menu li {
@@ -1323,7 +1332,9 @@ select {
     display: flex;
     line-height: 1.5;
     white-space: nowrap;
-    *white-space: normal
+    *white-space: normal;
+    padding:10px;
+
 }
 
 .yuki-menu ul {
@@ -1341,98 +1352,7 @@ select {
     margin-left: .65em
 }
 
-.yuki-menu>li {
-    height: var(--menu-items-height,100%);
-    margin: var(--menu-items-margin,0)
-}
 
-.yuki-menu>li>a {
-    align-items: center;
-    background-color: var(--menu-background-initial-color);
-    border-radius: var(--menu-items-radius,0);
-    color: var(--menu-text-initial-color);
-    display: flex;
-    height: 100%;
-    padding: var(--menu-items-padding,0);
-    transition: all .25s ease
-}
-
-.yuki-menu>li>a svg {
-    fill: var(--menu-text-initial-color)
-}
-
-.yuki-menu>li:hover>a {
-    background-color: var(--menu-background-hover-color);
-    color: var(--menu-text-hover-color)
-}
-
-.yuki-menu>li:hover>a svg {
-    fill: var(--menu-text-hover-color)
-}
-
-.yuki-menu>li[class*=current-menu-]>a {
-    background-color: var(--menu-background-active-color);
-    color: var(--menu-text-active-color)
-}
-
-.yuki-menu>li[class*=current-menu-]>a svg {
-    fill: var(--menu-text-active-color)
-}
-
-.yuki-menu>li ul {
-    background-color: var(--dropdown-background-initial-color);
-    border-radius: var(--dropdown-radius,0);
-    box-shadow: var(--dropdown-box-shadow,none);
-    color: var(--dropdown-text-initial-color);
-    min-width: var(--dropdown-width);
-    z-index: 99999
-}
-
-.yuki-menu>li ul svg {
-    fill: var(--dropdown-text-initial-color)
-}
-
-.yuki-menu>li ul a {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-    padding: var(--dropdown-item-padding);
-    transition: all .25s ease;
-    width: 100%
-}
-
-.yuki-menu>li ul li {
-    border-top: var(--dropdown-divider)
-}
-
-.yuki-menu>li ul li:first-child,.yuki-menu>li ul li:first-child>a {
-    border-top: none;
-    border-top-left-radius: inherit;
-    border-top-right-radius: inherit
-}
-
-.yuki-menu>li ul li:last-child,.yuki-menu>li ul li:last-child>a {
-    border-bottom-left-radius: inherit;
-    border-bottom-right-radius: inherit
-}
-
-.yuki-menu>li ul li:hover>a {
-    background-color: var(--dropdown-background-active-color);
-    color: var(--dropdown-text-hover-color)
-}
-
-.yuki-menu>li ul li:hover>a svg {
-    fill: var(--dropdown-text-hover-color)
-}
-
-.yuki-menu>li ul li[class*=current-menu-]>a {
-    background-color: var(--dropdown-background-active-color);
-    color: var(--dropdown-text-active-color)
-}
-
-.yuki-menu>li ul li[class*=current-menu-]>a svg {
-    fill: var(--dropdown-text-active-color)
-}
 
 .yuki-site-branding .site-logo {
     display: block;
@@ -1998,8 +1918,8 @@ select {
 }
 
 .entry-divider {
-    border-bottom: var(--entry-divider,1px solid var(--yuki-base-200));
-    margin: calc(var(--card-content-spacing)/2) 0
+    border-bottom: var(#000,1px solid var(--yuki-base-200));
+    margin: calc(20/2) 0
 }
 
 .cat-taxonomies .entry-tax-item {
