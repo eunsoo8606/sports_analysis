@@ -71,10 +71,8 @@ module.exports = {
     pageCount : (pageNum) =>{
         return new Promise((resolve,reject)=>{
             const db = mysqlConObj.init();
-            console.log("pageNum : ", pageNum)
             console.log("PAGE_CNT query : ", blogQs.PAGE_CNT(pageNum))
             db.query(blogQs.PAGE_CNT(pageNum),pageNum, function (err, results, fields) {
-                console.log("results : ", results)
                 //result Check
                 if (err || !results || results.length === 0) {
                     console.log("err : ", err)
@@ -87,18 +85,19 @@ module.exports = {
             });
         });
     },
-    selectOne:(blogSeq,res)=>{
+    selectOne:(commSeq,res)=>{
         return new Promise((resolve,reject)=>{
-            var db = mysqlConObj.init();
-     
-            db.query(blogQs.SELECT_ONE,blogSeq, function (err, results, fields) {
+            const db = mysqlConObj.init();
+            console.log("commSeq : ", commSeq)
+            db.query(blogQs.SELECT_ONE,commSeq, function (err, results, fields) {
+                console.log("init....2", err)
                 //result Check
                 if (err || !results || results.length === 0) {
                     res.send(errors.error(resMsg.DB_ERROR,err));
                     db.end();
                     return false;
                 }
-                var result = results;
+                const result = results;
                 db.end();
                 return resolve(result);
             });
@@ -195,17 +194,17 @@ module.exports = {
             });
         });
     },
-    count:(blogSeq)=>{
-            var db = mysqlConObj.init();
+    count:(blogSeq,res)=>{
+            const db = mysqlConObj.init();
             console.log("top3 query : ", blogQs.COUNT)
             db.query(blogQs.COUNT,blogSeq, function (err, results, fields) {
                 //result Check
-                if (err || !results || results.length == 0) {
+                if (err || !results || results.length === 0) {
                     res.send(errors.error(resMsg.BAD_REQUEST,'DB ERROR..'));
                     db.end();
                     return false;
                 }
-                var result = results;
+                const result = results;
                 db.end();
                 return result;
             });

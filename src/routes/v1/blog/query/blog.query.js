@@ -38,17 +38,15 @@ module.exports={
                                `;
     },
     SELECT_ONE : `
-                  SELECT  a.BLOG_SEQ,
+                  SELECT  a.COMM_SEQ,
                           a.MAIN_IMG,
                           a.TITLE,
                           a.MEMBER_SEQ,
                           DATE_FORMAT(a.REG_DTTM,"%Y-%m-%d") as REG_DTTM,
                           a.CONTENT ,
-                          b.NICK_NAME,
                           a.COUNT
-                    FROM COMMUNITY a, MEMBER b
-                   WHERE COMM_SEQ = ?
-                     AND a.MEMBER_SEQ = b.MEMBER_SEQ`,
+                    FROM COMMUNITY a
+                   WHERE COMM_SEQ = ?`,
     TOP3      :(memberSeq)=>{
         return `SELECT DATE_FORMAT(REG_DTTM,'%y.%m.%d') AS REG_DTTM,
                        BLOG_SEQ,
@@ -60,7 +58,7 @@ module.exports={
            ${(memberSeq !== "" && memberSeq !== undefined?"WHERE MEMBER_SEQ = ?":"")}
         ORDER BY REG_DTTM DESC
            LIMIT 0,3`;},
-    COUNT     :`UPDATE BLOG SET COUNT = COUNT +1 WHERE BLOG_SEQ = ?`,
+    COUNT     :`UPDATE COMMUNITY SET COUNT = COUNT +1 WHERE COMM_SEQ = ?`,
     COMMENTS : `SELECT DATE_FORMAT(A.REG_DTTM,'%y.%m.%d %H:%m') AS REG_DTTM,
                         B.NICK_NAME,
                         A.TEXT,

@@ -49,16 +49,14 @@ router.get('/list', async (req, res) => {
 
 });
 
-router.get('/detail/:id',(req,res)=>{
-    var blogSeq  = req.params.id;
-    var cookies  = common.util.getCookie(req);
-    var category = Buffer.from(req.query.category, "base64").toString('utf8');
-    var scope       = req.session.scope;
-    var value   = (cookies.acToken === undefined?{blogSeq:blogSeq,login:'N',scope:scope}:{blogSeq:blogSeq,login:'Y',scope:scope});
-    switch(category){
-        case 'detail': bCount.count(blogSeq); res.render("blog/detail.ejs",value); break;
-        case 'update':res.render("blog/update.ejs",value); break;
-    }
+router.get('/detail/:id',async (req,res)=>{
+    let commSeq     = req.params.id;
+    let scope       = req.session.scope;
+    let value = {commSeq:commSeq,login:'N',scope:scope};
+
+    await commService.count(commSeq,res);
+
+    res.render("blog/detail.ejs",value);
 });
 
 router.get("/write",(req,res)=>{
@@ -115,33 +113,14 @@ router.post('/upload', common.multer.single('file'),(req, res) => {
     res.send(imgUri);
 });
 
-router.get("/detail/:id/selectOne",(req,res)=>{
-    var blogSeq = req.params.id;
-    var cookies = common.util.getCookie(req);
-    request({
-        url:`${process.env.apiServerUrl}/v1/blog/detail`,
-        method:'GET',
-        headers:{
-                 'Cotent-Type':'application/json; charset=UTF-8',
-                 'Authorization':'Bearer ' + cookies.acToken},
-        qs:{
-          'blogSeq':blogSeq
-        },json:true
-      },
-      function (error, response, body) {
-        console.log("data : ", body.data)
-        if(error !== undefined && error !== null){ 
-            res.send("401");
-            return false;
-        }
-        
-        if(body === undefined){ 
-            res.send("401");
-            return false;
-        }
-        
-        res.send(body.data);
-      });
+router.get("/detail/:id/selectOne", (req,res)=>{
+    const commSeq = req.params.id;
+    console.log("init........")
+    commService.selectOne(commSeq,res).then((data)=>{
+        console.log("data : ", data)
+        res.status(stCd.OK).send(success.success_json(resMsg.SUCCESS_REQUEST,data))
+    });
+
 });
 
 router.delete("/detail/:id",(req,res)=>{
@@ -171,11 +150,11 @@ router.delete("/detail/:id",(req,res)=>{
 });
 
 router.put("/detail/:id",(req,res)=>{
-    var blogSeq         = req.params.id;
-    var cookies         = common.util.getCookie(req);
-    var title           = req.body.title;
-    var content         = req.body.content;
-    var mainImg         = req.body.mainImg;
+    let blogSeq         = req.params.id;
+    let cookies         = common.util.getCookie(req);
+    let title           = req.body.title;
+    let content         = req.body.content;
+    let mainImg         = req.body.mainImg;
     request({
             url:`${process.env.apiServerUrl}/v1/blog/detail`,
             method:'PUT',
@@ -190,7 +169,7 @@ router.put("/detail/:id",(req,res)=>{
             },json:true
         },
         function (error, response, body) {
-            if(error !== undefined && error !== null){ 
+            if(error !== undefined && error !== null){
                 console.log("error : ", error);
                 res.status(401).send(error);
                 res.end();
@@ -198,6 +177,7 @@ router.put("/detail/:id",(req,res)=>{
             }
             res.send("200");
         });
+    res.send("200");
     });
 
     router.get("/top3",(req,res)=>{

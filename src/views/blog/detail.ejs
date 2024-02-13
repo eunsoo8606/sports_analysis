@@ -6,75 +6,35 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="" name="keywords">
   <meta content="" name="description">
- <%- include('../layout/blog/back.ejs') %>
-
+ <%- include('../layout/back.ejs') %>
+  <style>
+    .container {
+      max-width: 1080px;
+    }
+  </style>
  <script>
-  const blogSeq = '<%=blogSeq%>';
-  var loginYn = "<%=login%>";
+  const commSeq = '<%=commSeq%>';
+  const loginYn = "<%=login%>";
   $(function(){
-    $("#blogSeq1").val(blogSeq);
-    $("#blogSeq2").val(blogSeq);
 
     $.ajax({
-      url:"/v1/user/me",
+      url:`/v1/blog/detail/${commSeq}/selectOne`,
       type:"GET",
-      dataType:'json',
       success:(data)=>{
-        var user = data.data;
-        var t    = document.getElementById("commentInsertBt");
-        if(user === undefined) addLoginEvent(t);
-        else{
-          if(user.MEMBER_SEQ === undefined){
-            addLoginEvent(t);
-          }
-          $("#authSeq").val(user.MEMBER_SEQ); 
-        }
+        const datas  = data.data[0];
 
-        $.ajax({
-            url:`/v1/blog/detail/${blogSeq}/selectOne`,
-            type:"GET",
-            success:(data)=>{ 
-              var datas  = data[0];
-              if(user === undefined){
-                  $("#blog-update").css("display","none");
-                  $("#blog-delete").css("display","none");
-              }else{
-                if(user.MEMBER_SEQ != datas.MEMBER_SEQ){
-                  $("#blog-update").css("display","none");
-                  $("#blog-delete").css("display","none");
-                }
-              }
-              
-              $("#author").text(datas.NICK_NAME);
-              $("#regDt").text(datas.REG_DTTM);
-              $("#blog-count").text(datas.COUNT);
-              $("#title-area").html(datas.TITLE);
-              $("#blog-area").html(datas.CONTENT);
+        $("#blog-update").hide()
+        $("#blog-delete").hide()
 
-              $.ajax({
-                    url:`/v1/blog/detail/${blogSeq}/comments`,
-                    type:"GET",
-                    success:(data)=>{ 
-                      var datas  = data; 
-                      if(datas === undefined)
-                      return false;
-                    
-                      commentLevel1Html(datas);
-                      commentLevel2Html(datas);
-                      updateDisplay(datas);
-                    },
-                    error:(err)=>{
-                      console.log(err);
-                    }
-                  });
-            },
-            error:(err)=>{
-              console.log(err);
-            }
-        });
-     },
+        $("#author").text("Score365");
+        $("#regDt").text(datas.REG_DTTM);
+        $("#blog-count").text(datas.COUNT);
+        $("#title-area").html(datas.TITLE);
+        $("#blog-area").html(datas.CONTENT);
+
+      },
       error:(err)=>{
-        console.log("ERROR : ",err);
+        console.log(err);
       }
     });
    
@@ -270,15 +230,14 @@ function updateComent(blogSeq){
                 url:`/v1/blog/detail/${blogSeq}/comments`,
                 type:"PUT",
                 data:$("#commentUpForm").serialize(),
-                success:(data)=>{ 
-                    var datas  = data;
-                  if(data.data > 0){
-                      alert("정상적으로 수정 되었습니다.");
-                      location.reload();
-                  }else{
-                      alert("수정 실패! 관리자에게 문의 하세요.");
-                      return false;
-                  }
+                success:(data)=>{
+                    if(data.data > 0){
+                        alert("정상적으로 수정 되었습니다.");
+                        location.reload();
+                    }else{
+                        alert("수정 실패! 관리자에게 문의 하세요.");
+                        return false;
+                    }
                 },
                 error:(err)=>{
                     console.log(err);
@@ -358,7 +317,7 @@ function commentInsertBt(){
 </script>
 </head>
 <body data-spy="scroll" >
-    <%- include('../layout/blog/header.ejs') %>
+    <%- include('../layout/header.ejs') %>
     <div class="write_menu" id="write_menu">
       <div class="quick_menuHeader" id="quick_menuHeader">
         <% if(login == "Y"){%>
@@ -373,17 +332,17 @@ function commentInsertBt(){
   <section id="blogWrite" class="padd-section wow fadeInUp" style="background-color: #f9f9f9;">
     <div class="container">
       <div class="section-title text-center"></div>
-        <div class="row" style="background-color: #fff; border-left: 1px solid #e8e8e8; border-right: 1px solid #e8e8e8; padding: 5%;">
-          <form style="width:100%;" name="blog-form" id="blog-form" onsubmit="return false;">
-            <div id="title-area" style="font-size: 29px;">
+        <div class="row" style="background-color: #fff; border-left: 1px solid #e8e8e8; border-right: 1px solid #e8e8e8; color: #000000; padding: 5%; display: block;">
+            <div id="title-area" style="font-size: 40px; font-weight: bold;padding-bottom:10px;">
                 
             </div>
-            작성자 : <span id="author"></span>&nbsp;|&nbsp;작성일 : <span id="regDt"></span>&nbsp;|&nbsp; 조회수 : <span id="blog-count"></span>
+            <div class="description">
+              작성자 : <span id="author"></span>&nbsp;|&nbsp;작성일 : <span id="regDt"></span>&nbsp;|&nbsp; 조회수 : <span id="blog-count"></span>
+            </div>
             <hr>
             <div id="blog-area"> 
                 
             </div>
-          </form>
           <div class="comment_area">
             <div class="comment_numb">
               <div class="left">
@@ -409,6 +368,6 @@ function commentInsertBt(){
         </div>
       </div>
     </section>
-    <%- include('../layout/blog/footer.ejs') %>
+    <%- include('../layout/footer.ejs') %>
 </body>
 </html>

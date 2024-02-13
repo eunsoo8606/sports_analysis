@@ -9,11 +9,11 @@ const path = require('path');
 require('dotenv').config();
 /** SSL 적용을 위해 greenlock-express module 사용 */
 
-// require('greenlock-express').init({
-//   packageRoot: __dirname,
-//   configDir: './greenlock.d',
-//   maintainerEmail: 'eunsoo8606@naver.com',
-// }).serve(app);
+ require('greenlock-express').init({
+   packageRoot: __dirname,
+   configDir: './greenlock.d',
+   maintainerEmail: 'eunsoo8606@naver.com',
+ }).server(app);
 
 /** Session 생성 */
 app.use(session({
@@ -67,7 +67,7 @@ const getCurrentTime = async() => {
 };
 
 
-cron.schedule('* * * * *',()=>{
+cron.schedule('*/10 * * * *',()=>{
     console.log("scheduler1 init........",getCurrentTime());
     scrapingHumor(targetUrl);
 });
@@ -201,7 +201,7 @@ async function scrapingHumor(url){
 
 async function fileUpload(response,fileName){
     console.log("fileName : ", fileName);
-    const resource = '/public/uploads/img/'+year.toString()+'/'+month.toString();
+    const resource = '/uploads/img/'+year.toString()+'/'+month.toString();
     let root = appRoot+resource;
     util.makeFolder(path.join(root));
 

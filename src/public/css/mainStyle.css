@@ -1521,7 +1521,7 @@ a:hover{
 .write_menu{
             transition: top 0.8s; 
             transform: translateY(-150%); 
-            position: absolute; top: 50%; left: 85%; 
+            position: absolute; top: 50%; left: 79%;
             width: 200px; 
             padding: 10px; 
             background: white;  
@@ -1762,6 +1762,7 @@ a {
     font-family: "Roboto", sans-serif;
 }
 .comment_area {
+  width: 100%;
   padding-bottom: 40px;
   background: #f6f6f6;
   border-width: 1px 0;

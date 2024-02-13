@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <title>myHistory</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <meta content="" name="keywords">
-  <meta content="" name="description">
+  <meta name="keywords" content="SCCORE365, 실시간 분석, 유머, 후방주의, 움짤, 연예인">
+  <meta name="description" content="실시간으로 올라오는 스포츠 분석,움짤,후방주의,연예인 짤을 빠르고 재밌게 감상해보세요!">
  <%- include('layout/back.ejs') %>
   <script src="https://kit.fontawesome.com/9122867515.js" crossorigin="anonymous"></script>
 
@@ -60,15 +60,15 @@
     
               values += ` <div class="col-md-6 col-lg-4 mt-5">
                             <div class="block-blog text-left">
-                              <a href="javascript:void(0)"><img src="${(mainImg === ""?"/imges/blog/blog-image-1.jpg":mainImg)}"width='100%' height='220' onerror="this.src='${webDomain}/imges/blog/blog-image-1.jpg'"></a>
+                              <a href="/v1/blog/detail/${datas[i].COMM_SEQ}"><img src="${(mainImg === ""?"/imges/blog/blog-image-1.jpg":mainImg)}"width='100%' height='220' onerror="this.src='${webDomain}/imges/blog/blog-image-1.jpg'"></a>
                               <div class="content-blog">
                                 <span class='category'><h5>유머/이슈</h5></span>
-                                <h4 class='title'><a href="#">${datas[i].TITLE}</a></h4>
+                                <h4 class='title'><a href="/v1/blog/detail/${datas[i].COMM_SEQ}">${datas[i].TITLE}</a></h4>
                                 <hr/>
                                 <span class="byline meta-item"> <i class="fas fa-feather" aria-hidden="true"></i>  <span class='date'>Score365</span></span>
                                 /
                                 <span class='entry-date'><i class="far fa-calendar" aria-hidden="true"></i> <span class='date'>${datas[i].REG_DTTM}</span></span>
-                                <a class="pull-right readmore" href="/v1/blog/detail/${datas[i].BLOG_SEQ}?category=${btoa('detail')}">View Details</a>
+                                <a class="pull-right readmore" href="/v1/blog/detail/${datas[i].COMM_SEQ}">View Details</a>
                               </div>
                             </div>
                           </div>`;
