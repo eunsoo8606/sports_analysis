@@ -1134,55 +1134,6 @@ body.mobile-nav-active #mobile-nav-toggle i {
   }
 }
 
-#blog .block-blog img {
-  width: 100%;
-  cursor: auto;
-  border-top: 1px solid rgb(0 0 0 / 20%);
-  border-left: 1px solid rgb(0 0 0 / 20%);
-  border-right: 1px solid rgb(0 0 0 / 20%);
-}
-
-#blog .block-blog .content-blog {
-  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2), 0 0 4px 0 rgba(0, 0, 0, 0.19);
-  display: inline-block;
-  min-height: 125px;
-  padding: 20px 10px;
-  width: 100%;
-}
-
-#blog .block-blog .content-blog h4 {
-  line-height: 24px;
-  margin-bottom: 20px;
-  text-transform: capitalize;
-  font-weight: normal;
-  letter-spacing: 0;
-  font-size: 16px;
-}
-
-#blog .block-blog .content-blog h4 a {
-  color: #fff;
-  text-decoration: none;
-  transition: 0.3s;
-}
-
-#blog .block-blog .content-blog h4 a:hover {
-  color: #e0a800;
-}
-
-#blog .block-blog .content-blog > span {
-  float: left;
-  font-size: 12px;
-}
-
-#blog .block-blog .content-blog a.readmore {
-  color: #fff;
-  font-size: 12px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: 0.3s;
-  letter-spacing: 0;
-  text-transform: capitalize;
-}
 
 a:hover{
   color: #e0a800;
@@ -1191,9 +1142,6 @@ a:hover{
 
 }
 
-#blog .block-blog .content-blog a.readmore:hover {
-  color: #e0a800;
-}
 
 /* Newsletter Section
 --------------------------------*/
@@ -1705,23 +1653,36 @@ a:hover{
   text-align: center;
   margin: 25px auto 0;
 }
-.paginationSub{width: 200px;
-  margin: 0 auto;}
+.paginationSub{
+  width: 600px;
+  margin: 0 auto;
+}
 
 .pagination .paginationSub a.active {
-  background-color: #1e88e5;
+  background-color: #e0a800;
   color: #fff;
   border: 1px solid #1e88e5;
   font-weight: 700;
 }
 .pagination .paginationSub a {
   display: inline-block;
-  color: #1c87e5;
+  color: #e0a800;
   width: 40px;
   line-height: 36px;
+  height:37.33px !important;
   transition: background-color .3s;
-  border: 1px solid #dee2e6;
+  border: 1px solid #e0a800;
   font-size: 15px;
+}
+
+.pagination .paginationSub a > img {
+  height: auto !important;
+  display: inline !important;
+}
+
+.paginationSub .arrows{
+  font-size: 10px !important;
+  padding: 2px;
 }
 
 a {
@@ -1729,6 +1690,7 @@ a {
   color: inherit;
   cursor: pointer;
 }
+/*
 .search-area{
   display: inline-block;
   padding: 5px;
@@ -1751,7 +1713,7 @@ a {
   min-width: 120px;
   vertical-align: middle;
   font-size: 16px;
-}
+}*/
 
 .blog-none{
   text-align: center;

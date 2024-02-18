@@ -1,19 +1,118 @@
-<header id="header" class="header header-hide">
-<script>
-    $(function(){
-      $("#nav-menu-container").css("position","relative");
-      $("#mobile-nav").css({"position":"absolute !important","z-index":"0"});
-    });
-</script>
-    <div class="container">
-      <div id="logo" class="pull-left">
-        <h1><a href="/" class="scrollto"><img src="/imges/logo.png" style="height: 70px;"/></a></h1>
-        <!-- Uncomment below if you prefer to use an image logo -->
-        <!-- <a href="#body"><img src="img/logo.png" alt="" title="" /></a>-->
-      </div>
-      <nav id="nav-menu-container">
-        <ul class="nav-menu" id="nav-menu">
-        </ul>
-      </nav><!-- #nav-menu-container -->
+<header class="yuki-site-header">
+    <div id="yuki-off-canvas-modal" class="yuki-off-canvas yuki-modal" data-toggle-behaviour="drawer-left">
+        <div class="yuki-modal-inner">
+            <div class="yuki-modal-actions">
+                <button id="yuki-close-off-canvas-modal" class="yuki-close-modal yuki-toggleable" data-toggle-target="#yuki-off-canvas-modal" type="button">
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div class="yuki-modal-content" data-redirect-focus="#yuki-close-off-canvas-modal">
+                <div class="yuki-builder-column yuki-builder-column-0 yuki-builder-column-desktop yuki-builder-column-desktop-dir-column yuki-builder-column-tablet-dir-column yuki-builder-column-mobile-dir-column yuki_header_builder_col_modal_0_desktop">
+                    <div data-builder-element="widgets" class="prose yuki-heading yuki-heading-style-1 yuki_header_el_widgets">
+                    </div>
+                </div>
+                <div class="yuki-builder-column yuki-builder-column-0 yuki-builder-column-mobile yuki-builder-column-desktop-dir-column yuki-builder-column-tablet-dir-column yuki-builder-column-mobile-dir-column yuki_header_builder_col_modal_0_mobile">
+                    <div data-builder-element="collapsable-menu" class="yuki-collapsable-menu h-full yuki_header_el_collapsable-menu_wrap">
+                        <ul id="menu-menu-1" class="yuki-collapsable-menu yuki_header_el_collapsable-menu collapsable yuki-menu-has-arrow">
+                            <li id="menu-item-14" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-14">
+                                <a href="/">홈
+                                    <button type="button" class="yuki-dropdown-toggle">
+                                        <span class="yuki-menu-icon"><i class="fas fa-angle-down" aria-hidden="true"></i>
+                                        </span>
+                                    </button>
+                                </a>
+                            </li>
+                            <li id="menu-item-16" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-16"><a href="#_humor">유머<button type="button" class="yuki-dropdown-toggle"><span class="yuki-menu-icon"><i class="fas fa-angle-down" aria-hidden="true"></i></span></button></a></li>
+                            <li id="menu-item-17" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-17"><a href="#">후방주의<button type="button" class="yuki-dropdown-toggle"><span class="yuki-menu-icon"><i class="fas fa-angle-down" aria-hidden="true"></i></span></button></a></li>
+                            <li id="menu-item-131" class="menu-item menu-item-type-taxonomy menu-item-object-category current-menu-item menu-item-131"><a href="#" aria-current="page">스포츠 분석<button type="button" class="yuki-dropdown-toggle"><span class="yuki-menu-icon"><i class="fas fa-angle-down" aria-hidden="true"></i></span></button></a></li>
+                            <li id="menu-item-139" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-139"><a href="#">연예인 자료<button type="button" class="yuki-dropdown-toggle"><span class="yuki-menu-icon"><i class="fas fa-angle-down" aria-hidden="true"></i></span></button></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </header><!-- #header -->
+    <div class="yuki-header-row yuki-header-row-primary_navbar" data-row="primary_navbar">
+        <div class="container mx-auto text-xs px-gutter flex flex-wrap items-stretch">
+            <div class="yuki-builder-column yuki-builder-column-0 yuki-builder-column-desktop yuki-builder-column-desktop-dir-row yuki-builder-column-tablet-dir-row yuki-builder-column-mobile-dir-row yuki_header_builder_col_primary_navbar_0_desktop">
+                <div data-builder-element="logo" class="yuki-site-branding yuki_header_el_logo" data-logo="top">
+                    <a class="site-logo " href="/">
+                        <img src="/imges/logo.png" alt="Score">
+                    </a>
+                    <div class="site-identity">
+                    </div>
+                </div>
+            </div>
+            <div class="yuki-builder-column yuki-builder-column-0 yuki-builder-column-mobile yuki-builder-column-desktop-dir-row yuki-builder-column-tablet-dir-row yuki-builder-column-mobile-dir-row yuki_header_builder_col_primary_navbar_0_mobile">
+                <div data-builder-element="logo" class="yuki-site-branding yuki_header_el_logo" data-logo="top">
+                    <a class="site-logo " href="/">
+                        <img src="/imges/logo.png" alt="Score">
+                    </a>
+                    <div class="site-identity">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="yuki-header-row yuki-header-row-bottom_row" data-row="bottom_row">
+        <div class="container mx-auto text-xs px-gutter flex flex-wrap items-stretch">
+            <div class="yuki-builder-column yuki-builder-column-0 yuki-builder-column-desktop yuki-builder-column-desktop-dir-row yuki-builder-column-tablet-dir-row yuki-builder-column-mobile-dir-row yuki_header_builder_col_bottom_row_0_desktop">
+
+            </div>
+            <div class="yuki-builder-column yuki-builder-column-1 yuki-builder-column-desktop yuki-builder-column-desktop-dir-row yuki-builder-column-tablet-dir-row yuki-builder-column-mobile-dir-row yuki_header_builder_col_bottom_row_1_desktop">
+                <div data-builder-element="menu-2" class="yuki-menu-wrap h-full yuki_header_el_menu_2_wrap">
+                    <ul id="menu-menu-2" class="sf-menu clearfix yuki-menu yuki_header_el_menu_2 yuki-menu-has-arrow sf-js-enabled sf-arrows" style="touch-action: pan-y;"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-14"><a href="/">홈<span class="yuki-menu-icon"><i class="fas fa-angle-down" aria-hidden="true"></i></span></a></li>
+                        <li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-16"><a href="javascript:goPage('HUM')">유머<span class="yuki-menu-icon"><i class="fas fa-angle-down" aria-hidden="true"></i></span></a></li>
+                        <li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-17"><a href="javascript:goPage('WRN')">후방주의<span class="yuki-menu-icon"><i class="fas fa-angle-down" aria-hidden="true"></i></span></a></li>
+                        <li class="menu-item menu-item-type-taxonomy menu-item-object-category current-menu-item menu-item-131"><a href="javascript:goPage('SPT')" aria-current="page">스포츠 분석<span class="yuki-menu-icon"><i class="fas fa-angle-down" aria-hidden="true"></i></span></a></li>
+                        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-139"><a href="javascript:goPage('IDL')">연예인 자료<span class="yuki-menu-icon"><i class="fas fa-angle-down" aria-hidden="true"></i></span></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="yuki-builder-column yuki-builder-column-2 yuki-builder-column-desktop yuki-builder-column-desktop-dir-row yuki-builder-column-tablet-dir-row yuki-builder-column-mobile-dir-row yuki_header_builder_col_bottom_row_2_desktop">
+                <div data-builder-element="socials" class="yuki_header_el_socials">
+                    <div class="yuki-socials yuki-socials-custom yuki-socials-none">
+                        <a class="yuki-social-link" target="_blank" rel="nofollow" style="--yuki-official-color: #557dbc;" href="#">
+                                                <span class="yuki-social-icon">
+                                                    <i class="fab fa-facebook" aria-hidden="true"></i>                                </span>
+                        </a>
+                        <a class="yuki-social-link" target="_blank" rel="nofollow" style="--yuki-official-color: #7acdee;" href="#">
+                                                <span class="yuki-social-icon">
+                                                    <i class="fab fa-twitter" aria-hidden="true"></i>                                </span>
+                        </a>
+                        <a class="yuki-social-link" target="_blank" rel="nofollow" style="--yuki-official-color: #ed1376;" href="#">
+                                                <span class="yuki-social-icon">
+                                                    <i class="fab fa-instagram" aria-hidden="true"></i>                                </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="yuki-builder-column yuki-builder-column-1 yuki-builder-column-mobile yuki-builder-column-desktop-dir-row yuki-builder-column-tablet-dir-row yuki-builder-column-mobile-dir-row yuki_header_builder_col_bottom_row_1_mobile">            <div data-builder-element="socials" class="yuki_header_el_socials">
+                <div class="yuki-socials yuki-socials-custom yuki-socials-none">
+                    <a class="yuki-social-link" target="_blank" rel="nofollow" style="--yuki-official-color: #557dbc;" href="#">
+                                            <span class="yuki-social-icon">
+                                                <i class="fab fa-facebook" aria-hidden="true"></i>                                </span>
+                    </a>
+                    <a class="yuki-social-link" target="_blank" rel="nofollow" style="--yuki-official-color: #7acdee;" href="#">
+                                            <span class="yuki-social-icon">
+                                                <i class="fab fa-twitter" aria-hidden="true"></i>                                </span>
+                    </a>
+                    <a class="yuki-social-link" target="_blank" rel="nofollow" style="--yuki-official-color: #ed1376;" href="#">
+                                            <span class="yuki-social-icon">
+                                                <i class="fab fa-instagram" aria-hidden="true"></i>                                </span>
+                    </a>
+                </div>
+            </div>
+            </div>
+            <div class="yuki-builder-column yuki-builder-column-2 yuki-builder-column-mobile yuki-builder-column-desktop-dir-row yuki-builder-column-tablet-dir-row yuki-builder-column-mobile-dir-row yuki_header_builder_col_bottom_row_2_mobile">
+
+            </div>
+        </div>
+    </div>
+    <script>
+        function goPage(category){
+            location.href="/v1/community/ctry/"+category+"?scope=paging";
+        }
+    </script>
+</header>

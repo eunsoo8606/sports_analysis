@@ -1,8 +1,8 @@
 
 
 module.exports={
-    common:(blog)=>{
-        var result = [blog.memberSeq,blog.content,blog.title,blog.firstIndex,blog.lastIndex];
+    common:(community)=>{
+        var result = [community.category,community.content,community.title,community.firstIndex,community.lastIndex];
         var origin = [];
         var j = 0;
         for(var i =0; i < result.length; i++){

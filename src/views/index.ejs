@@ -19,71 +19,127 @@
   ============================-->
 
   <!--==========================
-    Blog Section
+    Content Section
   ============================-->
-  <section id="_humor" class="padd-section wow fadeInUp">
-    <div class="section-title text-center">
-      <h2>유머/이슈</h2>
-      <p class="separator"><a href="javascript:goBlog()">더보기</a></p>
-    </div>
-    <div class="container">
-      <div class="row" id="blog_area">
+    <section id="_humor" class="padd-section wow fadeInUp">
+      <div class="section-title text-center">
+        <h2>유머/이슈</h2>
+        <p class="separator"><a href="javascript:goPage('HUM')">더보기</a></p>
       </div>
-    </div>
-  </section>
+      <div class="container">
+        <div class="row" id="humor_area">
+        </div>
+      </div>
+    </section>
+
+    <section id="_warning" class="padd-section wow fadeInUp">
+        <div class="section-title text-center">
+            <h2>후방주의</h2>
+            <p class="separator"><a href="javascript:goPage('WRN')">더보기</a></p>
+        </div>
+        <div class="container">
+            <div class="row" id="warning_area">
+            </div>
+        </div>
+    </section>
+
+    <section id="_sports" class="padd-section wow fadeInUp">
+        <div class="section-title text-center">
+            <h2>스포츠 분석</h2>
+            <p class="separator"><a href="javascript:goPage('SPT')">더보기</a></p>
+        </div>
+        <div class="container">
+            <div class="row" id="sports_area">
+            </div>
+        </div>
+    </section>
+
+
+    <section id="_enter" class="padd-section wow fadeInUp">
+      <div class="section-title text-center">
+        <h2>연예인</h2>
+        <p class="separator"><a href="javascript:goPage('IDL')">더보기</a></p>
+      </div>
+      <div class="container">
+        <div class="row" id="enter_area">
+        </div>
+      </div>
+    </section>
 
     <%- include('layout/footer.ejs') %>
   
     <script>
       $(()=>{
+        start();
+      });
 
-        const requestParams = {cpage:1,limit:10,title:'',category:'',selectSize:10,scope:'paging',content:'',memberSeq:0};
+    async function start(){
+        await listGrid.init('HUM','humor');
+        await listGrid.init('SPT','sports');
+        await listGrid.init('IDL','enter');
+        await listGrid.init('WRN','warning');
+    }
+
+    const listGrid = (function(){
+
+      const selectHumorList = async (category,area)=>{
+        const requestParams = {cpage:1,limit:10,title:'',category:category,selectSize:6,scope:'paging',content:'',memberSeq:0};
 
         $.ajax({
-          url:"/v1/blog/list",
+          url:"/v1/community/list",
           type:"GET",
           data:requestParams,
-          success:(data)=>{ 
+          success:(data)=>{
             let datas  = data.data;
             let values = '';
             let webDomain = window.location.protocol+ "//" + window.location.host;
-            if(datas == null || datas.length == 0) {
-              values="<div class='blog-none'>작성된 블로그 내용이 없습니다.</div>";
+            if(datas == null || datas.length === 0) {
+              values="<div class='blog-none'>작성된 글이 없습니다.</div>";
               $("#blog_area").html(values);
               return false;
             }
-    
+
             for(var i = 0; i < datas.length;i++){
               let mainImg = datas[i].MAIN_IMG;
               console.log("mainImg : ", mainImg)
               if(mainImg == null) mainImg = '/imges/blog/blog-image-1.jpg';
-    
+
               values += ` <div class="col-md-6 col-lg-4 mt-5">
                             <div class="block-blog text-left">
-                              <a href="/v1/blog/detail/${datas[i].COMM_SEQ}"><img src="${(mainImg === ""?"/imges/blog/blog-image-1.jpg":mainImg)}"width='100%' height='220' onerror="this.src='${webDomain}/imges/blog/blog-image-1.jpg'"></a>
+                              <a href="/v1/community/detail/${datas[i].COMM_SEQ}"><img src="${(mainImg === ""?"/imges/blog/blog-image-1.jpg":mainImg)}"width='100%' height='220' onerror="this.src='${webDomain}/imges/blog/blog-image-1.jpg'"></a>
                               <div class="content-blog">
                                 <span class='category'><h5>유머/이슈</h5></span>
-                                <h4 class='title'><a href="/v1/blog/detail/${datas[i].COMM_SEQ}">${datas[i].TITLE}</a></h4>
+                                <h4 class='title'><a href="/v1/community/detail/${datas[i].COMM_SEQ}">${datas[i].TITLE}</a></h4>
                                 <hr/>
                                 <span class="byline meta-item"> <i class="fas fa-feather" aria-hidden="true"></i>  <span class='date'>Score365</span></span>
                                 /
                                 <span class='entry-date'><i class="far fa-calendar" aria-hidden="true"></i> <span class='date'>${datas[i].REG_DTTM}</span></span>
-                                <a class="pull-right readmore" href="/v1/blog/detail/${datas[i].COMM_SEQ}">View Details</a>
+                                <a class="pull-right readmore" href="/v1/community/detail/${datas[i].COMM_SEQ}">View Details</a>
                               </div>
                             </div>
                           </div>`;
             }
-    
-            $("#blog_area").html(values);
+
+            $("#"+area+"_area").html(values);
           },
           error:(err)=>{
             console.log(err);
           }
         });
-    
-      });
-    function goBlog(){
-      location.href="/v1/blog?scope=paging";
+      }
+
+      return {
+        init : async function(category,area){
+          await selectHumorList(category,area);
+        }
+      }
+    })();
+
+
+
+
+    function goPage(category){
+      location.href="/v1/community/ctry/"+category+"?scope=paging";
     }
     </script>
 </body>

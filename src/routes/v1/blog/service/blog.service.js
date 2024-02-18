@@ -12,8 +12,6 @@ module.exports = {
         return new Promise((resolve, reject)=>{
                 const db = mysqlConObj.init();
                 db.beginTransaction();
-                console.log(" query : ", blogQs.INSERT)
-                console.log("Data : ",data)
                 db.query(blogQs.INSERT,data,function(err,results,fields){
                     if (err !== undefined && err !== null) {
                         console.log("init...",err)
@@ -34,11 +32,10 @@ module.exports = {
     selectList: (community,res)=>{
         return new Promise((resolve,reject)=>{
             const db = mysqlConObj.init();
-            console.log(" query : ", blogQs.LIST(community.title,community.content,community.memberSeq,community.firstIndex));
-            console.log("query value : ", common(community))
-            db.query(blogQs.LIST(community.title,community.content,community.memberSeq,community.firstIndex),common(community), function (err, results, fields) {
+            db.query(blogQs.LIST(community.title,community.content,community.firstIndex,community.category),common(community), function (err, results, fields) {
                 //result Check
                 if (err || !results || results.length === 0) {
+                    console.log("err : ", err)
                     res.send(errors.error(resMsg.DB_ERROR,'DATABASE ERROR..'));
                     db.end();
                     return false;
@@ -48,21 +45,18 @@ module.exports = {
             });
         });
     },
-    totalCount: (blog,res)=>{
+    totalCount: (community,res)=>{
         return new Promise((resolve,reject)=>{
-            var db = mysqlConObj.init();
-            console.log("blod : ", blog)
-            console.log("totaCount query : ", blogQs.TOTAL(blog.memberSeq,blog.title,blog.content))
-            console.log("totalCount value : ",commonVO([blog.memberSeq,blog.title,blog.content]))
-            db.query(blogQs.TOTAL(blog.memberSeq,blog.title,blog.content),commonVO([blog.memberSeq,blog.title,blog.content]), function (err, results, fields) {
+            const db = mysqlConObj.init();
+
+            db.query(blogQs.TOTAL(community.title,community.content,community.category),commonVO([community.title,community.content,community.category]), function (err, results, fields) {
                 //result Check
-                if (err || !results || results.length == 0) {
-                    console.log("err : ", err);
+                if (err || !results || results.length === 0) {
                     res.send(errors.error(resMsg.BAD_REQUEST,err));
                     db.end();
                     return false;
                 }
-                var count = results[0].COUNT;
+                const count = results[0].COUNT;
                 db.end();
                 return resolve(count);
             });
@@ -71,7 +65,6 @@ module.exports = {
     pageCount : (pageNum) =>{
         return new Promise((resolve,reject)=>{
             const db = mysqlConObj.init();
-            console.log("PAGE_CNT query : ", blogQs.PAGE_CNT(pageNum))
             db.query(blogQs.PAGE_CNT(pageNum),pageNum, function (err, results, fields) {
                 //result Check
                 if (err || !results || results.length === 0) {
@@ -306,6 +299,29 @@ module.exports = {
                     db.end();
                     return resolve(results.affectedRows);
                 });
+        });
+    },insertMetaData:(commSeq,category,res)=>{
+        return new Promise((resolve,reject)=>{
+            var db = mysqlConObj.init();
+            db.beginTransaction();
+            db.query(comQs.INSERT(parentSeq),comment,function(err,results,fields){
+                if (err !== undefined && err !== null) {
+                    console.log("init...",err)
+                    db.rollback();
+                    db.end();
+                    res.send(errors.error(resMsg.BAD_REQUEST,err));
+                    return false;
+                }
+                if(results.affectedRows === 0){
+                    db.rollback();
+                    db.end();
+                    res.status(stCd.BAD_REQUEST).send(errors.error(resMsg.INSERT_FAILD,'INSERT FAILAD..'));
+                    return false;
+                }
+                db.commit();
+                db.end();
+                return resolve(results.affectedRows);
+            });
         });
     }
 }

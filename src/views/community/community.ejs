@@ -6,18 +6,19 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="" name="keywords">
   <meta content="" name="description">
- <%- include('../layout/back.ejs') %>
+
+  <%- include('../layout/back.ejs') %>
 <script>
 $(function(){
     blogList(1);
 
-    $("#search-btn").on('click',function(){
+    /*$("#search-btn").on('click',function(){
       var category = $('#category').val().trim();
       if(category == "title") $("#title").val($("#searchKeyword").val());
       if(category == "content") $("#contents").val($("#searchKeyword").val());
        
       blogList(1);
-    });
+    });*/
 
     $("#selectSize").on('change',function(){
       blogList(1);
@@ -28,31 +29,36 @@ function blogList(cpage){
   $("#cpage").val(cpage);
 
   $.ajax({
-      url:"/v1/blog/list",
+      url:"/v1/community/list",
       type:"GET",
       data:$("#search-form").serialize(),
       success:(data)=>{ 
-        var datas  = data.data;
-        var values = '';
-        var webDomain = window.location.protocol+ "//" + window.location.host;
-        if(datas == null || datas.length == 0) return false;
+        let datas     = data.data;
+        let values    = '';
+        let webDomain = window.location.protocol+ "//" + window.location.host;
+
+        if(datas == null || datas.length === 0) return false;
 
         for(var i = 0; i < datas.length;i++){
-          var mainImg = datas[i].MAIN_IMG;
+          let mainImg = datas[i].MAIN_IMG;
           if(mainImg == null) mainImg = '/imges/blog/blog-image-1.jpg';
 
           values += ` <div class="col-md-6 col-lg-4 mt-5">
-                        <div class="block-blog text-left">
-                          <a href="/v1/blog/detail/${datas[i].COMM_SEQ}"><img src="${(mainImg === ""?"/imges/blog/blog-image-1.jpg":mainImg)}"width='360' height='220' onerror="this.src='${webDomain}/imges/blog/blog-image-1.jpg'"></a>
-                          <div class="content-blog">
-                            <h4><a href="/v1/blog/detail/${datas[i].COMM_SEQ}">${datas[i].TITLE}</a></h4>
-                            <span>작성일 : ${datas[i].REG_DTTM} | 조회수 : ${datas[i].COUNT}</span>
-                            <a class="pull-right readmore" href="/v1/blog/detail/${datas[i].COMM_SEQ}">View Details</a>
-                          </div>
-                        </div>
-                      </div>`;
+                            <div class="block-blog text-left">
+                              <a href="/v1/community/detail/${datas[i].COMM_SEQ}"><img src="${(mainImg === ""?"/imges/blog/blog-image-1.jpg":mainImg)}"width='100%' height='220' onerror="this.src='${webDomain}/imges/blog/blog-image-1.jpg'"></a>
+                              <div class="content-blog">
+                                <span class='category'><h5>유머/이슈</h5></span>
+                                <h4 class='title'><a href="/v1/community/detail/${datas[i].COMM_SEQ}">${datas[i].TITLE}</a></h4>
+                                <hr/>
+                                <span class="byline meta-item"> <i class="fas fa-feather" aria-hidden="true"></i>  <span class='date'>Score365</span></span>
+                                /
+                                <span class='entry-date'><i class="far fa-calendar" aria-hidden="true"></i> <span class='date'>${datas[i].REG_DTTM}</span></span>
+                                <a class="pull-right readmore" href="/v1/community/detail/${datas[i].COMM_SEQ}">View Details</a>
+                              </div>
+                            </div>
+                          </div>`;
         }
-        $("#blog_area").html(values);
+        $("#comm_area").html(values);
         Util.setPaging("#paginationSub",$("#cpage").val(),data.etc,"blogList");
       },
       error:(err)=>{
@@ -85,33 +91,34 @@ function enterkey() {
 
     <div class="container">
       <div class="section-title text-center">
-        <h2>My Blog List</h2>
-        <p><a href="/v1/blog/write">블로그 작성하기 <i class="fas fa-pencil-alt" style="margin-bottom: 3px;"></i></a></p>
+        <h2>Content</h2>
       </div>
     </div>
     <div class="container">
       <div class="search-area">
         <form name="search-form" onsubmit="return false;" id="search-form">
           <input type="hidden" id="cpage" name="cpage" value="1"/>
-          <input type="hidden" id="limit" name="limit" value="10"/>
+          <input type="hidden" id="scope" name="scope" value="paging"/>
+          <input type="hidden" id="limit" name="limit" value="9"/>
+          <input type="hidden" id="page_category" name="category" value="<%=category%>"/>
           <input type="hidden" id="title" name="title"/>
           <input type="hidden" id="contents" name="content"/>
           <div id="search-left">
-            <select id="category">
+            <select id="category" hidden="true">
               <option value="title">제목</option>
               <option value="content">내용</option>
             </select>
         </div>
           <div id="search-left">
             <div class="input-group mb-3">
-              <input type="text" class="form-control" id="searchKeyword" onkeyup="enterkey()" placeholder="검색어를 입력해 주세요." aria-label="Recipient's username" aria-describedby="basic-addon2">
+              <input type="hidden" class="form-control" id="searchKeyword" onkeyup="enterkey()" placeholder="검색어를 입력해 주세요." aria-label="Recipient's username" aria-describedby="basic-addon2">
               <div class="input-group-append">
-                <button class="btn btn-dark" id="search-btn" type="button">검색</button>
+                <button class="btn btn-dark" id="search-btn" type="button" hidden="true">검색</button>
               </div>
             </div>
           </div>
           <div id="search-right">
-            <select id="selectSize" name="selectSize">
+            <select id="selectSize" name="selectSize" hidden="true">
               <option value="10">10건씩 보기</option>
               <option value="20">20건씩 보기</option>
               <option value="30">30건씩 보기</option>
@@ -122,19 +129,17 @@ function enterkey() {
       </div>
     </div>
     <div class="container">
-      <div class="row" id="blog_area">
-        
+      <div class="row" id="comm_area">
+
       </div>
     </div>
     <div class="container">
-      <div class="section-title text-center">
       <div class="pagination">
         <div class="paginationSub " id="paginationSub"></div>
       </div>
     </div>
-    </div>
   </section>
-  
+
     <%- include('../layout/footer.ejs') %>
 </body>
 </html>

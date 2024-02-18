@@ -222,10 +222,10 @@ function Util() {
           var html = "";
         
           if (start - 1 > 0) {
-              html += '<a href="javascript:'+pn+'(\''+(start - 1)+'\');"><img src="/imges/ico_lt_1.png" alt=""></a>';
+              html += '<a href="javascript:'+pn+'(\''+(start - 1)+'\');"class="arrows"><<</a>';
           }
           if (cpage > 1) {
-              html += '<a href="javascript:'+pn+'(\''+(cpage - 1)+'\');"><img src="/imges/ico_lt.png" alt=""></a>';
+              html += '<a href="javascript:'+pn+'(\''+(cpage - 1)+'\');" class="arrows"><</a>';
           }
 
           for (var i = start; i <= end; i++) {
@@ -237,10 +237,10 @@ function Util() {
               }
           }
           if (cpage < data.totalpage) {
-              html += '<a href="javascript:'+pn+'(\''+(cpage + 1)+'\');"><img src="/imges/ico_gt.png" alt=""></a>';
+              html += '<a href="javascript:'+pn+'(\''+(cpage + 1)+'\');" class="arrows">></a>';
           }
           if (end < data.totalpage) {
-              html += '<a href="javascript:'+pn+'(\''+(end + 1)+'\');"><img src="/imges/ico_gt_1.png" alt=""></a>';
+              html += '<a href="javascript:'+pn+'(\''+(end + 1)+'\');" class="arrows">>></a>';
           }
 
           $(selector).html(html);

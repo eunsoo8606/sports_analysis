@@ -14,26 +14,25 @@ const stCd          = require('../../../utils/statusCode');
 const resMsg        = require('../../../utils/responseMssage');
 const success       = require('../../../utils/success');
 
-router.get('/', (req, res) => {
-    var scope;
-    console.log("req.query.scope : ", req.query.scope)
+router.get('/ctry/:id', (req, res) => {
+    let scope;
+
     if(req.query.scope !== undefined){
         scope         = req.query.scope;
         req.session.scope = scope;
     }
-    var cookies       = common.util.getCookie(req);
-    var value = (cookies.acToken === undefined?{login:'N'}:{login:'Y'});
-    res.render("blog/blog.ejs",value);
+
+    let category          = req.params.id;
+    let cookies        = common.util.getCookie(req);
+    res.render("community/community.ejs",{category:category});
 });
 
 router.get('/list', async (req, res) => {
-    console.log("list init....",req.query);
-    let community            = {cpage:req.query.cpage,selectSize:req.query.selectSize,title:req.query.title,content:req.query.content,limit:req.query.limit,memberSeq:req.query.id};
+    let community            = {cpage:req.query.cpage,selectSize:req.query.selectSize,title:req.query.title,content:req.query.content,limit:req.query.limit,memberSeq:req.query.id,category: req.query.category};
     let scope                = req.query.scope;
 
     if(scope !== undefined && scope.indexOf(",") > -1){
         let categoty       = scope.split(",");
-
         switch(categoty[0]){
             case 'list': await list(community,res); break;
             case 'paging': await pagingList(community,res); break;
@@ -56,7 +55,7 @@ router.get('/detail/:id',async (req,res)=>{
 
     await commService.count(commSeq,res);
 
-    res.render("blog/detail.ejs",value);
+    res.render("community/detail.ejs",value);
 });
 
 router.get("/write",(req,res)=>{
@@ -362,7 +361,6 @@ router.put("/detail/:id/comments",(req,res)=>{
 
 
 async function list(community,res){
-    console.log("list inti...")
     commService.selectList(community,res).then((data)=>{
         res.status(stCd.OK).send(success.success_json(resMsg.SUCCESS_REQUEST,data,''));
         res.end();
@@ -376,13 +374,12 @@ async function pagingList(community,res){
     //내 블로그 작성글 전체 카운트
     await commService.totalCount(community,res).then((data)=>{
         totalCount         = data;
-        var limit          = 10;
-
+        let limit  = 9;
         if(community.selectSize !== undefined)
             limit = community.selectSize
 
         community.lastIndex     = pagination.lastIndex(community.cpage,limit);
-        totalPageCount     = pagination.getTotalPageCount(totalCount,limit);
+        totalPageCount          = pagination.getTotalPageCount(totalCount,limit);
         community.firstIndex    = pagination.firstIndex(community.cpage,limit);
 
          commService.selectList(community,res).then((data)=>{

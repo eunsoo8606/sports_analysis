@@ -2,31 +2,30 @@ module.exports={
     INSERT : 'INSERT INTO COMMUNITY (MEMBER_SEQ,PAGE_NUM,SITE,MAIN_IMG,TITLE,CONTENT,REGP_IP,REGP_SEQ,MAIN_CTGRY,SUB_CTGRY)VALUES(?,?,?,?,?,?,?,?,?,?)',
     DELETE : 'DELETE FROM COMMUNITY WHERE COMM_SEQ = ?',
     UPDATE : 'UPDATE COMMUNITY SET TITLE = ?, CONTENT = ?, MAIN_IMG = ?, MDFP_IP =? ,MDFP_SEQ = ?, MDF_DTTM = NOW() WHERE BLOG_SEQ = ?',
-    LIST   :(title,content,memberSeq,firstIndex)=>{ 
+    LIST   :(title,content,firstIndex,category)=>{
         const list = `SELECT B.* 
                       FROM (SELECT @rownum:=@rownum+1 AS RNUM,
                                    COMM_SEQ,
                                    MAIN_IMG,
                                    TITLE,
                                    DATE_FORMAT(REG_DTTM,"%Y-%m-%d") as REG_DTTM,
+                                   REG_DTTM AS ORDER_SEQ,
                                    CONTENT,
                                    COUNT
                               FROM COMMUNITY, (SELECT @rownum:=0) TMP
-                             WHERE 1=1
-                   ${(memberSeq !== undefined && memberSeq !== '') ? 'AND MEMBER_SEQ = ?':''}
+                             WHERE MAIN_CTGRY = ?
                    ${(title !== undefined && title !== '') ? 'AND TITLE LIKE CONCAT("%",?,"%")':''}
                    ${(content !== undefined && content !== '')?'AND CONTENT LIKE CONCAT("%",?,"%")':''}
-                            ORDER BY REG_DTTM DESC
+                            ORDER BY ORDER_SEQ DESC
                     ) B
                     ${(firstIndex !== undefined && firstIndex !== '')?'WHERE RNUM > ? AND RNUM <= ?':''}`;
 
                    return list;
             },
-    TOTAL     : (memberSeq,title,content)=>{
+    TOTAL     : (title,content,category)=>{
                               return `SELECT COUNT(*) as COUNT 
                                         FROM COMMUNITY
-                                       WHERE 1=1
-                               ${(memberSeq !== "" && memberSeq !== undefined?"AND MEMBER_SEQ = ?":"")}
+                                       WHERE MAIN_CTGRY = ?
                                ${(title !== undefined && title !== '') ? 'AND TITLE LIKE CONCAT("%",?,"%")':''}
                                ${(content !== undefined && content !== '')?'AND CONTENT LIKE CONCAT("%",?,"%")':''}
                                `;

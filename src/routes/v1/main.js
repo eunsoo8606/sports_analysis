@@ -1,9 +1,9 @@
 const express    = require('express');
 const router                = express.Router();
-const blogRouter        = require("./blog/blogController");
+const commRouter        = require("./blog/commController");
 const commonRouter      = require('./common/common.controller');
 
 
-router.use('/blog',blogRouter);
+router.use('/community',commRouter);
 router.use('/common',commonRouter);
 module.exports = router;

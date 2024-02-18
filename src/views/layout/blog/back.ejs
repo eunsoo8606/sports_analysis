@@ -12,36 +12,4 @@
    <link href="//cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
    <script src="//cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
 
-
     <link href="/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-<script>
-    $(function(){
-    $.ajax({
-        url:"/v1/common/nav",
-        type:"GET",
-        dataType:"text",
-        success:(data)=>{ 
-            var nav = "";
-            if(data == "Y"){
-                nav = `
-                <li class="menu-has-children"><a href="javascript:void(0)">마이페이지</a>
-                    <ul>
-                    <li><a href="#">내 정보수정</a></li>
-                    <li><a href="/v1/login/logout">로그아웃</a></li>
-                    <li><a href="/v1/console/app">내 애플리케이션</a></li>
-                    </ul>
-                </li>
-                      `;
-            }else{
-                nav = `
-                <li><a href="/v1/login">Login</a></li>
-                      `;
-            }
-            $("#nav-menu").append(nav);
-        },
-        error:(err)=>{
-          console.log(err);
-        }
-      });
-});
-</script>
