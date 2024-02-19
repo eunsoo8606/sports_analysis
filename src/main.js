@@ -9,11 +9,11 @@ const path = require('path');
 require('dotenv').config();
 /** SSL 적용을 위해 greenlock-express module 사용 */
 
- /*require('greenlock-express').init({
+require('greenlock-express').init({
    packageRoot: __dirname,
    configDir: './greenlock.d',
    maintainerEmail: 'eunsoo8606@naver.com',
- }).server(app);/*
+ }).serve(app);
 
 /** Session 생성 */
 app.use(session({
@@ -66,26 +66,26 @@ const getCurrentTime = async() => {
 };
 
 
-cron.schedule('*/30 * * * *',()=>{
+cron.schedule('0,30 * * * *',()=>{
     const targetUrl    = 'https://damdaworld.com/humor';
     console.log("humor scheduler1 init........",getCurrentTime());
     scrapingHumor(targetUrl);
 });
 
-cron.schedule('*/30 * * * *',()=>{
+cron.schedule('0,50 * * * *',()=>{
     const targetUrl    = 'https://damdaworld.com/enter';
     console.log("enter scheduler2 init........",getCurrentTime());
     scrapingIDOL(targetUrl);
 });
 
 
-cron.schedule('*/30 * * * *',()=>{
+cron.schedule('0 * * * *',()=>{
     const targetUrl    = 'https://damdaworld.com/warning';
     console.log("warning scheduler3 init........",getCurrentTime());
     scrapingWarning(targetUrl);
 });
 
-cron.schedule('*/30 * * * *',()=>{
+cron.schedule('0,40 * * * *',()=>{
     const targetUrl    = 'https://damdaworld.com/sport';
     console.log("warning scheduler3 init........",getCurrentTime());
     scrapingSport(targetUrl);
