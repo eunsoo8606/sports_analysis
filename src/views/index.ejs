@@ -2,16 +2,21 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8">
-  <title>myHistory</title>
+  <title>EVERYDAY-365-ANALYSIS</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <link rel="icon" type="image/png" sizes="16x16"  href="/favicons/favio.png">
+  <meta property="og:image:alt" content="EVERYDAY365-ANALYSIS">
+  <meta property="og:title" content="EVERYDAY365-ANALYSIS">
+  <meta property="og:type" content="EVERYDAY365-ANALYSIS, 실시간 분석, 유머, 후방주의, 움짤, 연예인">
   <meta name="keywords" content="SCCORE365, 실시간 분석, 유머, 후방주의, 움짤, 연예인">
   <meta name="description" content="실시간으로 올라오는 스포츠 분석,움짤,후방주의,연예인 짤을 빠르고 재밌게 감상해보세요!">
+  <meta name="google-site-verification" content="ADhK17mlcPTIzl76RvBUc4-i_VclHtNqWZK882xmn2g" />
  <%- include('layout/back.ejs') %>
   <script src="https://kit.fontawesome.com/9122867515.js" crossorigin="anonymous"></script>
 
 </head>
 
-<body data-spy="scroll" data-target="#navbarNav" data-offset="50">
+<body class="post-template-default single single-post postid-386 single-format-standard wp-custom-logo wp-embed-responsive jps-theme-yuki-blogger yuki-body overflow-x-hidden yuki-form-modern" data-yuki-scroll-reveal="{&quot;delay&quot;:200,&quot;duration&quot;:600,&quot;interval&quot;:200,&quot;opacity&quot;:0,&quot;scale&quot;:1,&quot;origin&quot;:&quot;bottom&quot;,&quot;distance&quot;:&quot;200px&quot;}" style="height: 100%; --scrollbar-width: 17px;">
 
     <%- include('layout/header.ejs') %>
  <!--==========================
@@ -67,7 +72,12 @@
     </section>
 
     <%- include('layout/footer.ejs') %>
-  
+
+    <script  src="/js/re_post.min.js"></script>
+    <script  src="/js/scrollreveal.min.js"></script>
+    <script  src="/js/superfish.min.js"></script>
+    <script  src="/js/wp-emoji-release.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
     <script>
       $(()=>{
         start();
@@ -111,8 +121,8 @@
                                 <span class='category'><h5>유머/이슈</h5></span>
                                 <h4 class='title'><a href="/v1/community/detail/${datas[i].COMM_SEQ}">${datas[i].TITLE}</a></h4>
                                 <hr/>
-                                <span class="byline meta-item"> <i class="fas fa-feather" aria-hidden="true"></i>  <span class='date'>Score365</span></span>
-                                /
+                                <span class="byline meta-item"> <i class="fas fa-feather" aria-hidden="true"></i>  <span class='date'>Score365</span> / </span>
+
                                 <span class='entry-date'><i class="far fa-calendar" aria-hidden="true"></i> <span class='date'>${datas[i].REG_DTTM}</span></span>
                                 <a class="pull-right readmore" href="/v1/community/detail/${datas[i].COMM_SEQ}">View Details</a>
                               </div>

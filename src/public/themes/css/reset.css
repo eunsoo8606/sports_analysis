@@ -352,10 +352,10 @@ form, .yuki-form, [type="submit"] {
 
 .yuki-off-canvas .yuki-modal-inner {
     box-shadow: rgba(44, 62, 80, 0.35) 0px 0px 70px 0px;
-    background-color: var(--yuki-base-color);
+    background-color: #171717;
     background-image: none;
-    --yuki-modal-action-initial: var(--yuki-accent-color);
-    --yuki-modal-action-hover: var(--yuki-primary-color);
+    --yuki-modal-action-initial: #c5c5c5;
+    --yuki-modal-action-hover: #ffc300;
     width: 500px;
     margin-right: auto;
 }
@@ -409,18 +409,19 @@ form, .yuki-form, [type="submit"] {
 }
 
 .yuki_header_el_collapsable-menu {
-    font-family: inherit;
+    font-family: 'Nanum Gothic', sans-serif;
     font-weight: 700;
     font-size: 1rem;
+    color:#FFFFFF;
     line-height: 1.5em;
-    --menu-items-divider: 1px solid var(--lotta-border---menu-items-divider-initial-color);
-    --lotta-border-initial-color: var(--yuki-base-200);
-    --lotta-border---menu-items-divider-initial-color: var(--yuki-base-200);
-    --menu-text-initial-color: var(--yuki-accent-color);
-    --menu-text-hover-color: var(--yuki-primary-color);
-    --menu-text-active-color: var(--yuki-primary-color);
-    --menu-dropdown-toggle-border: 1px solid var(--lotta-border---menu-dropdown-toggle-border-initial-color);
-    --lotta-border---menu-dropdown-toggle-border-initial-color: var(--yuki-base-200);
+    --menu-items-divider: 1px solid #373747;
+    --lotta-border-initial-color: #373747;
+    --lotta-border---menu-items-divider-initial-color: #373747;
+    --menu-text-initial-color: #373747;
+    --menu-text-hover-color: #ffc300;
+    --menu-text-active-color: #ffc300;
+    --menu-dropdown-toggle-border: 1px solid #373747;
+    --lotta-border---menu-dropdown-toggle-border-initial-color: #373747;
 }
 
 .yuki_header_builder_col_modal_0_mobile {
@@ -506,7 +507,7 @@ form, .yuki-form, [type="submit"] {
 
 
 .yuki-header-row-bottom_row .container {
-    min-height: 60px;
+    min-height: 60px !important;
 }
 
 .yuki_header_el_trigger {

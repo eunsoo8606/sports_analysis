@@ -37,3 +37,42 @@
 
   <!-- Template Main Javascript File -->
   <script src="/js/main.js"></script>
+ <script>
+     $(function(){
+         // 스크롤바 너비 계산 및 CSS 변수 설정
+         var scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+         if (scrollbarWidth > 0) {
+             $('body').css('--scrollbar-width', scrollbarWidth + 'px');
+         }
+
+         // 토글 타겟을 가진 모든 요소에 대한 이벤트 핸들러 설정
+         $('[data-toggle-target]').each(function() {
+             let $this = $(this);
+             if (!$this.hasClass('yuki-toggleable')) {
+                 $this.addClass('yuki-toggleable');
+                 $this.on('click', function() {
+                     let $target = $($(this).data('toggle-target'));
+                     //let $showFocus = $($(this).data('toggle-show-focus'));
+                     let $hiddenFocus = $($(this).data('toggle-hidden-focus'));
+                     console.log("$target ", $target)
+                     $target.toggleClass('active');
+                     if ($target.hasClass('active')) {
+                         $('body').addClass('yuki-modal-visible');
+                         /*if ($showFocus.length) {
+                             setTimeout(function() {
+                                 $showFocus.first().focus();
+                             }, 100);
+                         }*/
+                     } else {
+                         setTimeout(function() {
+                             $('body').removeClass('yuki-modal-visible');
+                             if ($hiddenFocus.length) {
+                                 $hiddenFocus.first().focus();
+                             }
+                         }, 300);
+                     }
+                 });
+             }
+         });
+     });
+ </script>

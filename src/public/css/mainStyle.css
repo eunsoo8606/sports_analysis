@@ -9,8 +9,6 @@
 # General
 --------------------------------------------------------------*/
 body {
-  background-color: #1d2124;
-  color: #fff;
   font-family: 'Nanum Gothic', sans-serif;
 }
 
@@ -19,18 +17,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h2 {
-  color: #fff;
+  color: #000000;
   font-weight: 600;
 }
 
-h4 {
-  color: #000000;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  line-height: 2;
-}
 
 h5 {
   color: #626262;
@@ -215,11 +205,8 @@ hr{margin: 10px !important;}
   .content-blog > a{
     font-size: 13px;
     font-weight: bold;
-    color: #000000 !important;
+    color: #fff !important;
     padding-top: 5px;
-  }
-  .content-blog > .byline{
-    display: none;
   }
 }
 
@@ -273,7 +260,7 @@ hr{margin: 10px !important;}
   .content-blog > a{
     font-size: 13px;
     font-weight: bold;
-    color: #000000 !important;
+    color: #fff !important;
     padding-top: 5px;
   }
   .content-blog > .byline{
@@ -640,7 +627,7 @@ body.mobile-nav-active #mobile-nav-toggle i {
 }
 
 .separator {
-  color: #fff;
+  color: #000000;
   font-family: "Roboto", sans-serif;
   font-size: 15px;
   font-weight: 300;
@@ -1916,16 +1903,12 @@ ol, ul {
 }
 .content-blog{
   border-top: 2px solid #e0a800;
-  background: #FFFFFF;
+  background: #000000;
+  color:#fff;
   padding: 10px;
 }
 
-.content-blog > span{
-  color: #000000 !important;
-}
-.content-blog > a{
-  color: #000000 !important;
-}
+
 .title{
   font-family: inherit;
   font-weight: 700;
