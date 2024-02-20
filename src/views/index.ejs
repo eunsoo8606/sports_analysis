@@ -7,12 +7,8 @@
   <link rel="icon" type="image/png" sizes="16x16"  href="/favicons/favio.png">
   <meta property="og:image:alt" content="EVERYDAY365-ANALYSIS">
   <meta property="og:title" content="EVERYDAY365-ANALYSIS">
-  <meta property="og:type" content="EVERYDAY365-ANALYSIS, 실시간 분석, 유머, 후방주의, 움짤, 연예인">
-  <meta name="keywords" content="SCCORE365, 실시간 분석, 유머, 후방주의, 움짤, 연예인">
-  <meta name="description" content="실시간으로 올라오는 스포츠 분석,움짤,후방주의,연예인 짤을 빠르고 재밌게 감상해보세요!">
   <meta name="google-site-verification" content="ADhK17mlcPTIzl76RvBUc4-i_VclHtNqWZK882xmn2g" />
  <%- include('layout/back.ejs') %>
-  <script src="https://kit.fontawesome.com/9122867515.js" crossorigin="anonymous"></script>
 
 </head>
 
@@ -118,7 +114,7 @@
                             <div class="block-blog text-left">
                               <a href="/v1/community/detail/${datas[i].COMM_SEQ}"><img src="${(mainImg === ""?"/imges/blog/blog-image-1.jpg":mainImg)}"width='100%' height='220' onerror="this.src='${webDomain}/imges/blog/blog-image-1.jpg'"></a>
                               <div class="content-blog">
-                                <span class='category'><h5>유머/이슈</h5></span>
+                                <span class='category'><h5>${datas[i].MAIN_CTGRY_NAME}</h5></span>
                                 <h4 class='title'><a href="/v1/community/detail/${datas[i].COMM_SEQ}">${datas[i].TITLE}</a></h4>
                                 <hr/>
                                 <span class="byline meta-item"> <i class="fas fa-feather" aria-hidden="true"></i>  <span class='date'>Score365</span> / </span>

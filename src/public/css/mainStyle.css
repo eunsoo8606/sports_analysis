@@ -207,6 +207,7 @@ hr{margin: 10px !important;}
     font-weight: bold;
     color: #fff !important;
     padding-top: 5px;
+    float: right;
   }
 }
 
@@ -262,6 +263,7 @@ hr{margin: 10px !important;}
     font-weight: bold;
     color: #fff !important;
     padding-top: 5px;
+    float:right;
   }
   .content-blog > .byline{
     display: none;

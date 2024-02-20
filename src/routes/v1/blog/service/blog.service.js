@@ -45,6 +45,23 @@ module.exports = {
             });
         });
     },
+    selectMetaDataList: (categoryId,res)=>{
+        return new Promise((resolve,reject)=>{
+            const db = mysqlConObj.init();
+            db.query(blogQs.META_DATA(),categoryId, function (err, results, fields) {
+                //result Check
+                if (err || !results || results.length === 0) {
+                    console.log("err : ", err)
+                    res.send(errors.error(resMsg.DB_ERROR,'DATABASE ERROR..'));
+                    db.end();
+                    return false;
+                }
+                const result = results;
+                db.end();
+                return resolve(result);
+            });
+        });
+    },
     totalCount: (community,res)=>{
         return new Promise((resolve,reject)=>{
             const db = mysqlConObj.init();

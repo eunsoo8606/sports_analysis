@@ -72,14 +72,14 @@ cron.schedule('0,30 * * * *',()=>{
     scrapingHumor(targetUrl);
 });
 
-cron.schedule('0,50 * * * *',()=>{
+cron.schedule('0,25 * * * *',()=>{
     const targetUrl    = 'https://damdaworld.com/enter';
     console.log("enter scheduler2 init........",getCurrentTime());
     scrapingIDOL(targetUrl);
 });
 
 
-cron.schedule('0 * * * *',()=>{
+cron.schedule('0,50 * * * *',()=>{
     const targetUrl    = 'https://damdaworld.com/warning';
     console.log("warning scheduler3 init........",getCurrentTime());
     scrapingWarning(targetUrl);

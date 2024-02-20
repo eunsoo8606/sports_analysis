@@ -23,8 +23,11 @@ router.get('/ctry/:id', (req, res) => {
     }
 
     let category          = req.params.id;
-    let cookies        = common.util.getCookie(req);
-    res.render("community/community.ejs",{category:category});
+
+    commService.selectMetaDataList(category,res).then((data)=>{
+        console.log("data: ", data)
+        res.render("community/community.ejs",{category:category,description:data[0].DESCRIPTION,keyword:data[0].KEYWORD,content:data[0].CONTENT});
+    });
 });
 
 router.get('/list', async (req, res) => {
@@ -51,11 +54,13 @@ router.get('/list', async (req, res) => {
 router.get('/detail/:id',async (req,res)=>{
     let commSeq     = req.params.id;
     let scope       = req.session.scope;
-    let value = {commSeq:commSeq,login:'N',scope:scope};
 
     await commService.count(commSeq,res);
-
-    res.render("community/detail.ejs",value);
+    let category          = req.params.id;
+    await commService.selectMetaDataList(category,res).then((data)=>{
+        console.log("data: ", data)
+        res.render("community/detail.ejs",{commSeq:commSeq,login:'N',scope:scope,category:category,description:data[0].DESCRIPTION,keyword:data[0].KEYWORD,content:data[0].CONTENT});
+    });
 });
 
 router.get("/write",(req,res)=>{

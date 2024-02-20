@@ -876,10 +876,6 @@ form, .yuki-form, [type="submit"] {
 }
 
 @media (max-width: 768px) {
-    .yuki-body {
-        --wp-admin-bar-height:46px;
-    }
-
     .card-list {
         --card-thumbnail-width: 100%;
     }

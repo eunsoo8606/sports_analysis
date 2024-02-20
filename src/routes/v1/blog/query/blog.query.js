@@ -11,8 +11,10 @@ module.exports={
                                    DATE_FORMAT(REG_DTTM,"%Y-%m-%d") as REG_DTTM,
                                    REG_DTTM AS ORDER_SEQ,
                                    CONTENT,
-                                   COUNT
-                              FROM COMMUNITY, (SELECT @rownum:=0) TMP
+                                   COUNT,
+                                   MAIN_CTGRY,
+                                   (SELECT CODE_NAME FROM COMM_CODE WHERE CODE_ID = MAIN_CTGRY) AS MAIN_CTGRY_NAME
+                              FROM COMMUNITY , (SELECT @rownum:=0) TMP
                              WHERE MAIN_CTGRY = ?
                    ${(title !== undefined && title !== '') ? 'AND TITLE LIKE CONCAT("%",?,"%")':''}
                    ${(content !== undefined && content !== '')?'AND CONTENT LIKE CONCAT("%",?,"%")':''}
@@ -22,6 +24,13 @@ module.exports={
 
                    return list;
             },
+    META_DATA   :()=>{
+        const list = `SELECT DESCRIPTION,KEYWORD,CONTENT
+                               FROM META_DATA
+                              WHERE META_CTRY = ?
+                            `;
+        return list;
+    },
     TOTAL     : (title,content,category)=>{
                               return `SELECT COUNT(*) as COUNT 
                                         FROM COMMUNITY
