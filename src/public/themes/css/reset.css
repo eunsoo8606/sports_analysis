@@ -765,13 +765,10 @@ form, .yuki-form, [type="submit"] {
 }
 
 .yuki_footer_el_copyright {
-    font-family: inherit;
     font-weight: 400;
     font-size: 0.85rem;
     line-height: 1.5em;
-    color: var(--yuki-accent-active);
-    --yuki-link-initial-color: var(--yuki-primary-color);
-    --yuki-link-hover-color: var(--yuki-primary-active);
+    color: #FFFFFF;
 }
 
 .yuki_footer_builder_col_bottom_1_all {

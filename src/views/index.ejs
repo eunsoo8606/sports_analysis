@@ -7,7 +7,8 @@
   <link rel="icon" type="image/png" sizes="16x16"  href="/favicons/favio.png">
   <meta property="og:image:alt" content="EVERYDAY365-ANALYSIS">
   <meta property="og:title" content="EVERYDAY365-ANALYSIS">
-  <meta name="google-site-verification" content="ADhK17mlcPTIzl76RvBUc4-i_VclHtNqWZK882xmn2g" />
+    <meta name="google-site-verification" content="ADhK17mlcPTIzl76RvBUc4-i_VclHtNqWZK882xmn2g" />
+    <meta name="naver-site-verification" content="e0ba9fa4815f5e3697702a44eac44c4108999d79" />
  <%- include('layout/back.ejs') %>
 <style>
     .banner{
@@ -31,6 +32,30 @@
         right: 80px;
         top: 300px;
     }
+    .m-banner{
+        display: none;
+    }
+
+    @media (max-width: 1700px) {
+        .left-bar{
+            display: block;
+            position: fixed;
+            width: 165px;
+            height: 600px;
+            left: 40px;
+            top: 300px;
+        }
+        .right-bar{
+            display: block;
+            position: fixed;
+            width: 165px;
+            height: 600px;
+            right: 30px;
+            top: 300px;
+        }
+    }
+
+
     @media (max-width: 1600px) {
         .container {
             max-width:576px
@@ -49,6 +74,12 @@
         .banner{
             display: none !important;
         }
+        .m-banner{
+            display: block;
+            margin-top: 20px;
+            width: 100%;
+            margin-left: 10px
+        }
     }
 </style>
 </head>
@@ -63,6 +94,13 @@
                 n='<'+i+' type="text/javascript" src="'+m+'"></'+i+'>';cl.writeln(n);
             })(document,'script','https://tab2.clickmon.co.kr/pop/wp_ad_728_js.php?PopAd=CM_M_1003067%7C%5E%7CCM_A_1140503%7C%5E%7CAdver_M_1046207&rt_ad_id_code=RTA_106819','PASSBACK_INPUT');
         </script>
+        </div>
+        <div class="m-banner">
+            <script type="text/javascript">
+                (function(cl,i,c,k,m,o,n){m=c;o=cl.referrer;m+='&mon_rf='+encodeURIComponent(o);m+='&mon_direct_url='+encodeURIComponent(k);
+                    n='<'+i+' type="text/javascript" src="'+m+'"></'+i+'>';cl.writeln(n);
+                })(document,'script','https://tab2.clickmon.co.kr/pop/wp_ad_300_js.php?PopAd=CM_M_1003067%7C%5E%7CCM_A_1140503%7C%5E%7CAdver_M_1046207&rt_ad_id_code=RTA_106823','PASSBACK_INPUT');
+            </script>
         </div>
     </div>
     <div class="left-bar">
@@ -82,28 +120,6 @@
   <!--==========================
     Content Section
   ============================-->
-    <section id="_humor" class="padd-section wow fadeInUp">
-      <div class="section-title text-center">
-        <h2>유머/이슈</h2>
-        <p class="separator"><a href="javascript:goPage('HUM')">더보기</a></p>
-      </div>
-      <div class="container">
-        <div class="row" id="humor_area">
-        </div>
-      </div>
-    </section>
-
-    <section id="_warning" class="padd-section wow fadeInUp">
-        <div class="section-title text-center">
-            <h2>후방주의</h2>
-            <p class="separator"><a href="javascript:goPage('WRN')">더보기</a></p>
-        </div>
-        <div class="container">
-            <div class="row" id="warning_area">
-            </div>
-        </div>
-    </section>
-
     <section id="_sports" class="padd-section wow fadeInUp">
         <div class="section-title text-center">
             <h2>스포츠 분석</h2>
@@ -114,8 +130,26 @@
             </div>
         </div>
     </section>
-
-
+    <section id="_humor" class="padd-section wow fadeInUp">
+      <div class="section-title text-center">
+        <h2>유머/이슈</h2>
+        <p class="separator"><a href="javascript:goPage('HUM')">더보기</a></p>
+      </div>
+      <div class="container">
+        <div class="row" id="humor_area">
+        </div>
+      </div>
+    </section>
+    <section id="_warning" class="padd-section wow fadeInUp">
+        <div class="section-title text-center">
+            <h2>후방주의</h2>
+            <p class="separator"><a href="javascript:goPage('WRN')">더보기</a></p>
+        </div>
+        <div class="container">
+            <div class="row" id="warning_area">
+            </div>
+        </div>
+    </section>
     <section id="_enter" class="padd-section wow fadeInUp">
       <div class="section-title text-center">
         <h2>연예인</h2>

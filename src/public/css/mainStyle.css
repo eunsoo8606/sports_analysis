@@ -17,7 +17,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h2 {
-  color: #000000;
+  color: #ffc300;
   font-weight: 600;
 }
 
@@ -616,7 +616,6 @@ body.mobile-nav-active #mobile-nav-toggle i {
 
 
 .section-title h2 {
-  font-family: "Roboto", sans-serif;
   font-size: 45px;
   font-weight: 100;
   letter-spacing: 2px;
@@ -629,7 +628,7 @@ body.mobile-nav-active #mobile-nav-toggle i {
 }
 
 .separator {
-  color: #000000;
+  color: #ffc300;
   font-family: "Roboto", sans-serif;
   font-size: 15px;
   font-weight: 300;
