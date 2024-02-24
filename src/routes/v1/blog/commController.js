@@ -56,7 +56,7 @@ router.get('/detail/:id',async (req,res)=>{
     let scope       = req.session.scope;
 
     await commService.count(commSeq,res);
-    let category          = req.params.id;
+    let category          = 'ALL';
     await commService.selectMetaDataList(category,res).then((data)=>{
         console.log("data: ", data)
         res.render("community/detail.ejs",{commSeq:commSeq,login:'N',scope:scope,category:category,description:data[0].DESCRIPTION,keyword:data[0].KEYWORD,content:data[0].CONTENT});

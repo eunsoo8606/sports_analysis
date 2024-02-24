@@ -549,6 +549,7 @@ select {
     .container {
         max-width:576px
     }
+
 }
 
 @media (min-width: 768px) {
@@ -561,6 +562,7 @@ select {
     .container {
         max-width:1024px !important;
     }
+
 }
 
 @media (min-width: 1140px) {
@@ -571,7 +573,7 @@ select {
 
 @media (min-width: 1536px) {
     .container {
-        max-width:1536px !important;
+        max-width:1200px !important;
     }
 }
 

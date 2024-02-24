@@ -66,26 +66,26 @@ const getCurrentTime = async() => {
 };
 
 
-cron.schedule('0,30 * * * *',()=>{
+cron.schedule('5,30 * * * *',()=>{
     const targetUrl    = 'https://damdaworld.com/humor';
     console.log("humor scheduler1 init........",getCurrentTime());
     scrapingHumor(targetUrl);
 });
 
-cron.schedule('0,25 * * * *',()=>{
+cron.schedule('10,25,40 * * * *',()=>{
     const targetUrl    = 'https://damdaworld.com/enter';
     console.log("enter scheduler2 init........",getCurrentTime());
     scrapingIDOL(targetUrl);
 });
 
 
-cron.schedule('0,50 * * * *',()=>{
+cron.schedule('15,55,50 * * * *',()=>{
     const targetUrl    = 'https://damdaworld.com/warning';
     console.log("warning scheduler3 init........",getCurrentTime());
     scrapingWarning(targetUrl);
 });
 
-cron.schedule('0,40 * * * *',()=>{
+cron.schedule('20,45 * * * *',()=>{
     const targetUrl    = 'https://damdaworld.com/sport';
     console.log("warning scheduler3 init........",getCurrentTime());
     scrapingSport(targetUrl);
